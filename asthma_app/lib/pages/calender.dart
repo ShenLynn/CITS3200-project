@@ -11,7 +11,26 @@ class _CalenderState extends State<Calender> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(child: Text("Calender Screen/home"))
+        body: SafeArea(
+          child: Row(
+            children: <Widget>[
+              FlatButton.icon(
+                onPressed: () {
+                  Navigator.pushNamed(context, 'profile');
+                },
+                icon: Icon(Icons.person),
+                label: Text("Navigate to user"),
+              ),
+              FlatButton.icon(
+                onPressed: () {
+                  Navigator.pushNamed(context, 'forms_page');
+                },
+                icon: Icon(Icons.insert_drive_file),
+                label: Text("Navigate to forms"),
+              )
+            ],
+          )
+        ),
     );
   }
 }

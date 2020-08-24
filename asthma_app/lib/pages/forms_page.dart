@@ -9,6 +9,11 @@ class _FormsPageState extends State<FormsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+        title: Text("Forms"),
+        centerTitle: true,
+      ),
         body:Text("This is the page for all forms")
     );
   }
