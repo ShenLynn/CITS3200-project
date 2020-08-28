@@ -21,45 +21,101 @@ class _ProfileState extends State<Profile> {
           icon: new Icon(Icons.person),
           onPressed: () => _scaffoldKey.currentState.openDrawer()),
         ),
-        body: Padding(
-          padding: EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0.0),
+        body: SingleChildScrollView(
           child:Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Center(
-                child:CircleAvatar(
-                  radius: 40.0,
+              Container(
+                width: double.infinity,
+                height: 180.0,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Colors.lightGreen, Colors.green]
+                  )
                 ),
+                child:Column(
+                  children: <Widget>[
+                    SizedBox(height:20.0),
+                    Center(
+                      child:CircleAvatar(
+                        radius: 40.0,
+                        backgroundColor: Colors.white ,
+                      ),
+                    ),
+                    SizedBox(height: 20.0),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Joe Bloggs',
+                        style: TextStyle( color: Colors.white,fontSize: 35.0, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ]
+                )
+
               ),
-              Align(
-                alignment: Alignment.center,
-                child: Text(
-                   'Joe Bloggs',
-                    style: TextStyle(fontSize: 30.0),
-                 ),
-              ),
-              SizedBox(height: 20.0),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 0.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children:<Widget>[
               Text(
-                'About Me',
-                style: TextStyle(fontSize: 25.0, letterSpacing: 2.0, fontWeight: FontWeight.bold )
+                  'Full Name',
+                  style: TextStyle(color: Colors.blueGrey,fontSize: 20.0, letterSpacing: 2.0, fontWeight: FontWeight.bold)
+              ),
+              SizedBox(height: 10.0),
+              Text(
+                'Joe Alexander Bloggs',
+                    style: TextStyle(fontSize: 25.0, letterSpacing: 2.0)
+              ),
+              SizedBox(height: 10.0),
+              Text(
+                  'Date Of Birth',
+                  style: TextStyle(color: Colors.blueGrey, fontSize: 20.0, letterSpacing: 2.0, fontWeight: FontWeight.bold)
+              ),
+              SizedBox(height: 10.0),
+              Text(
+                  '10/07/1999',
+                  style: TextStyle(fontSize: 25.0, letterSpacing: 2.0)
+              ),
+              SizedBox(height: 10.0),
+              Text(
+                  'Phone Number',
+                  style: TextStyle(color: Colors.blueGrey,fontSize: 20.0, letterSpacing: 2.0, fontWeight: FontWeight.bold)
+              ),
+              SizedBox(height: 10.0),
+              Text(
+                  '0428298371',
+                  style: TextStyle(fontSize: 25.0, letterSpacing: 2.0)
+              ),
+              SizedBox(height: 10.0),
+              Text(
+                  'Email Address',
+                  style: TextStyle(color: Colors.blueGrey,fontSize: 20.0, letterSpacing: 2.0, fontWeight: FontWeight.bold)
               ),
               SizedBox(height: 5.0),
               Text(
-                'My name is Joe and I have been living with asthma for 10 years now. The first time I got an asthma attack I was around 11 years old, I was swimming in a lake with some friends when I felt this tightness in my chest. ',
+                  'Joebloggs13@gmail.com',
+                  style: TextStyle(fontSize: 25.0, letterSpacing: 2.0)
+              ),
+              SizedBox(height: 10.0),
+              Text(
+                'About Me',
+                style: TextStyle(color: Colors.blueGrey,fontSize: 20.0, letterSpacing: 2.0, fontWeight: FontWeight.bold )
+              ),
+              SizedBox(height: 5.0),
+              Text(
+                'I have been living with asthma for 10 years now. The first time I got an asthma attack I was around 11 years old, I was swimming in a lake with some friends when I felt this tightness in my chest. ',
                 style: TextStyle(fontSize: 20.0, letterSpacing: 2.0)
               ),
 
-              SizedBox(height: 20.0),
-              Text(
-                  'Diagnosis',
-                  style: TextStyle(fontSize: 25.0, letterSpacing: 2.0, fontWeight: FontWeight.bold )
-              ),
-              SizedBox(height: 5.0),
-              Text(
-                  '',
-                  style: TextStyle(fontSize: 20.0, letterSpacing: 2.0)
-              )
+              SizedBox(height: 20.0),]
 
+              )
+              )
             ]
           )
         )
@@ -76,9 +132,11 @@ class SideMenu extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: Text(
-              'My Asthma Profile',
-              style: TextStyle(color: Colors.grey, fontSize: 25),
+            child: Center(
+              child: Text(
+                'My Asthma Profile',
+                style: TextStyle(color: Colors.green, fontSize: 25),
+              ),
             ),
 
     ),
@@ -107,6 +165,7 @@ class SideMenu extends StatelessWidget {
               title: Text('Contact details'),
               onTap: () => {},
             ),
+            SizedBox(height: 30.0),
             ListTile(
               leading: Icon(Icons.settings),
               title: Text('Settings'),
