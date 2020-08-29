@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 //Calendar functions as both a calendar and the default home screen
 
@@ -11,55 +12,33 @@ class _CalendarState extends State<Calendar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-          child: Container(
-            color: Colors.blue[900],
-            child: Row(
-              //different rows allow for diff. layout of icon within the parent row.
-              children: [
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      FlatButton.icon(
-                          color:Colors.blue[900],
-                          icon: Icon(
-                          Icons.person,
-                          size:35,
-                          color:Colors.white),
-                          onPressed: () {
-                          Navigator.pushNamed(context, 'profile');
-                          },
-                        label: Text("")
-                      )]),
-                Spacer(),
-                //Spacer(),//Used to ensure correct spacing of notification row below:
-                Text("Asthma App  (Alpha)",
-                style: TextStyle(
-                  color:Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17.5
-                )
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.blue[900],
+          leading: IconButton(
+            icon:Icon(
+              Icons.person,
+              color:Colors.white,
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, 'profile');
+            },
+          ),
+          title: Text("Asthma App Alpha"),
+          centerTitle: true,
+          actions: [
+            IconButton(
+              icon:Icon(
+                Icons.notifications,
+                color:Colors.white
                 ),
-                Spacer(),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                        FlatButton.icon(
-                          color:Colors.blue[900],
-                            icon: Icon(
-                            Icons.notifications,
-                            size: 30,
-                            color:Colors.white),
-                            onPressed: () {
-                            //TODO ADD NOTIFICATION SECTION/FUNCTION
-                            }, label: Text(""))
-                        ]
-                    )
-                ]
-              ,)
-                  //TODO: Add in children w/notiication icon button,
-                  )),
+                onPressed: () {
+
+                },
+              )
+            ]),
         bottomNavigationBar: BottomAppBar(
+          elevation: 0,
         color: Colors.blue[900],
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
