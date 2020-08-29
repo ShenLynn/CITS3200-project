@@ -16,10 +16,15 @@ class _CalendarState extends State<Calendar> {
     super.initState();
     _controller = CalendarController();
   }
+  //set up global key for notification bar so we can open it w/ custom button
+  final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState >();
+
 
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldkey, // notification key set
         appBar: AppBar(
+          //header of app
           elevation: 0,
           backgroundColor: Colors.blue[900],
           leading: IconButton(
@@ -40,10 +45,48 @@ class _CalendarState extends State<Calendar> {
                 color:Colors.white
                 ),
                 onPressed: () {
+                _scaffoldkey.currentState.openEndDrawer();
                 //TODO: Add function to display notifications
                 },
               )
             ]),
+        //notification panel work
+        endDrawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                child: Text("Notifications",
+                style: TextStyle(
+                  color:Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+                textAlign: TextAlign.center
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.blue[900],
+                ),
+              ),
+              ListTile(
+                title: Text("Notification 1"),
+                onTap: () {
+                  //do something eg rubbish bin dismisses
+                  Navigator.pop(context); //return back to calendar
+                }
+              ),
+              ListTile(
+                title: Text("Notification 2"),
+                onTap: () {
+                  //do something
+                  Navigator.pop(context); //return back to calendar
+                }
+              ),
+            ],
+          )
+        ),
+
+        //body of app
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,7 +114,7 @@ class _CalendarState extends State<Calendar> {
         ),
 
 
-
+        // footer of app
         bottomNavigationBar: BottomAppBar(
           elevation: 0,
         color: Colors.blue[900],
@@ -113,3 +156,4 @@ class _CalendarState extends State<Calendar> {
     );
   }
 }
+
