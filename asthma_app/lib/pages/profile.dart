@@ -10,7 +10,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.blue[900],
         title: Text("User Profile"),
         centerTitle: true,
       ),
