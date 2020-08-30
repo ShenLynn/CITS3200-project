@@ -27,89 +27,104 @@ class _ProfileState extends State<Profile> {
             children: <Widget>[
               Container(
                 width: double.infinity,
-                height: 180.0,
+                height: 160.0,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Colors.lightGreen, Colors.green]
+                    colors: [Colors.blue[800], Colors.green]
                   )
                 ),
-                child:Column(
+                child:Stack(
+                  overflow: Overflow.visible,
+                  alignment: Alignment.center,
                   children: <Widget>[
-                    SizedBox(height:20.0),
-                    Center(
+                    Positioned(
+                        bottom: -60.0,
                       child:CircleAvatar(
-                        radius: 40.0,
-                        backgroundColor: Colors.white ,
+                        radius: 90.0,
+                        backgroundColor: Colors.white,
+                      )
+                    ),
+                    Positioned(
+                      bottom: -50.0,
+                      child: Center(
+                        child:CircleAvatar(
+                          backgroundImage: AssetImage('assets/joebloggs.jpeg'),
+                          radius: 80.0,
+                          backgroundColor: Colors.white ,
+                        ),
                       ),
                     ),
                     SizedBox(height: 20.0),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        'Joe Bloggs',
-                        style: TextStyle( color: Colors.white,fontSize: 35.0, fontWeight: FontWeight.bold),
-                      ),
-                    ),
+
                   ]
                 )
 
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 0.0),
+                padding: const EdgeInsets.fromLTRB(40.0, 30.0, 40.0, 0.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children:<Widget>[
+                SizedBox(height: 25.0),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Joe Bloggs',
+                      style: TextStyle( color: Colors.black,fontSize: 35.0),
+                    ),
+                  ),
+                  SizedBox(height: 20.0),
               Text(
-                  'Full Name',
-                  style: TextStyle(color: Colors.blueGrey,fontSize: 20.0, letterSpacing: 2.0, fontWeight: FontWeight.bold)
+                  'Full Name:',
+                  style: TextStyle(color: Colors.blue[800],fontSize: 20.0, letterSpacing: 2.0, fontWeight: FontWeight.bold)
               ),
-              SizedBox(height: 10.0),
+
               Text(
                 'Joe Alexander Bloggs',
-                    style: TextStyle(fontSize: 25.0, letterSpacing: 2.0)
+                    style: TextStyle(fontSize: 25.0)
               ),
-              SizedBox(height: 10.0),
+              SizedBox(height: 20.0),
               Text(
-                  'Date Of Birth',
-                  style: TextStyle(color: Colors.blueGrey, fontSize: 20.0, letterSpacing: 2.0, fontWeight: FontWeight.bold)
+                  'Date Of Birth:',
+                  style: TextStyle(color: Colors.blue[800], fontSize: 20.0, letterSpacing: 2.0, fontWeight: FontWeight.bold)
               ),
-              SizedBox(height: 10.0),
+
               Text(
                   '10/07/1999',
-                  style: TextStyle(fontSize: 25.0, letterSpacing: 2.0)
+                  style: TextStyle(fontSize: 25.0)
               ),
-              SizedBox(height: 10.0),
+              SizedBox(height: 20.0),
               Text(
-                  'Phone Number',
-                  style: TextStyle(color: Colors.blueGrey,fontSize: 20.0, letterSpacing: 2.0, fontWeight: FontWeight.bold)
+                  'Phone Number:',
+                  style: TextStyle(color: Colors.blue[800],fontSize: 20.0, letterSpacing: 2.0, fontWeight: FontWeight.bold)
               ),
-              SizedBox(height: 10.0),
+
               Text(
                   '0428298371',
-                  style: TextStyle(fontSize: 25.0, letterSpacing: 2.0)
+                  style: TextStyle(fontSize: 25.0)
               ),
-              SizedBox(height: 10.0),
+              SizedBox(height: 20.0),
               Text(
-                  'Email Address',
-                  style: TextStyle(color: Colors.blueGrey,fontSize: 20.0, letterSpacing: 2.0, fontWeight: FontWeight.bold)
+                  'Email Address:',
+                  style: TextStyle(color: Colors.blue[800],fontSize: 20.0, letterSpacing: 2.0, fontWeight: FontWeight.bold)
               ),
-              SizedBox(height: 5.0),
+
               Text(
                   'Joebloggs13@gmail.com',
-                  style: TextStyle(fontSize: 25.0, letterSpacing: 2.0)
+                  style: TextStyle(fontSize: 25.0)
               ),
-              SizedBox(height: 10.0),
+              SizedBox(height: 20.0),
               Text(
-                'About Me',
-                style: TextStyle(color: Colors.blueGrey,fontSize: 20.0, letterSpacing: 2.0, fontWeight: FontWeight.bold )
+                'About Me:',
+                style: TextStyle(color: Colors.blue[800],fontSize: 20.0, letterSpacing: 2.0,fontWeight: FontWeight.bold )
               ),
-              SizedBox(height: 5.0),
+
               Text(
                 'I have been living with asthma for 10 years now. The first time I got an asthma attack I was around 11 years old, I was swimming in a lake with some friends when I felt this tightness in my chest. ',
-                style: TextStyle(fontSize: 20.0, letterSpacing: 2.0)
+                style: TextStyle(fontSize: 20.0)
               ),
 
               SizedBox(height: 20.0),]
@@ -135,44 +150,44 @@ class SideMenu extends StatelessWidget {
             child: Center(
               child: Text(
                 'My Asthma Profile',
-                style: TextStyle(color: Colors.green, fontSize: 25),
+                style: TextStyle(color: Colors.blue[800], fontSize: 25),
               ),
             ),
 
     ),
             ListTile(
-              leading: Icon(Icons.blur_circular),
+              leading: Icon(Icons.blur_circular, color: Colors.blue[800]),
               title: Text('Diagnosis'),
               onTap: () => {},
             ),
             ListTile(
-              leading: Icon(Icons.assignment_turned_in),
+              leading: Icon(Icons.assignment_turned_in, color: Colors.blue[800]),
               title: Text('Control'),
               onTap: () => {},
             ),
             ListTile(
-              leading: Icon(Icons.airline_seat_flat),
+              leading: Icon(Icons.airline_seat_flat, color: Colors.blue[800]),
               title: Text('Treatment'),
               onTap: () => {},
             ),
             ListTile(
-              leading: Icon(Icons.child_care),
+              leading: Icon(Icons.child_care, color: Colors.blue[800]),
               title: Text('Related problems'),
               onTap: () => {},
             ),
             ListTile(
-              leading: Icon(Icons.contacts),
+              leading: Icon(Icons.contacts, color: Colors.blue[800]),
               title: Text('Contact details'),
               onTap: () => {},
             ),
             SizedBox(height: 30.0),
             ListTile(
-              leading: Icon(Icons.settings),
+              leading: Icon(Icons.settings, color: Colors.blue[800]),
               title: Text('Settings'),
               onTap: () => {},
             ),
             ListTile(
-              leading: Icon(Icons.power_settings_new),
+              leading: Icon(Icons.power_settings_new, color: Colors.blue[800]),
               title: Text('Log out'),
               onTap: () => {},
             ),
