@@ -10,7 +10,7 @@ class _FormsPageState extends State<FormsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.blue[900],
         title: Text("Forms"),
         centerTitle: true,
       ),
