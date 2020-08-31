@@ -12,69 +12,74 @@ class _CalendarState extends State<Calendar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.pushNamed(context, 'treatment');
+          },
+        ),
         appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.blue[900],
-          leading: IconButton(
-            icon:Icon(
-              Icons.person,
-              color:Colors.white,
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, 'profile');
-            },
+        elevation: 0,
+        backgroundColor: Colors.blue[900],
+        leading: IconButton(
+          icon:Icon(
+            Icons.person,
+            color:Colors.white,
           ),
-          title: Text("Asthma App Alpha"),
-          centerTitle: true,
-          actions: [
-            IconButton(
-              icon:Icon(
+          onPressed: () {
+            Navigator.pushNamed(context, 'profile');
+          },
+        ),
+        title: Text("Asthma App Alpha"),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon:Icon(
                 Icons.notifications,
                 color:Colors.white
-                ),
-                onPressed: () {
+            ),
+            onPressed: () {
 
-                },
-              )
-            ]),
-        bottomNavigationBar: BottomAppBar(
-          elevation: 0,
-        color: Colors.blue[900],
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            FlatButton.icon(
-              onPressed: () {
-                Navigator.pushNamed(context, 'forms_page');
-              },
-              icon: Icon(Icons.insert_drive_file, color: Colors.white),
-              label: Text(
-                  "Forms",
-                  style:TextStyle(color: Colors.white)),
-            ),
-            FlatButton.icon(
-              onPressed: () {
-                Navigator.pushNamed(context, 'calendar');
-              },
-              icon: Icon(Icons.calendar_today, color: Colors.white),
-              label: Text(
-                  "Calendar",
-                  style:TextStyle(color: Colors.white)),
-            ),
-            FlatButton.icon(
-              onPressed: () {
-                Navigator.pushNamed(context, 'help');
-              },
-              icon: Icon(
-                  Icons.help, color:Colors.white),
-              label: Text(
-                  "Help",
-              style:TextStyle(
-                color:Colors.white)),
-            ),
-          ],
-        )
-      ),
+            },
+          )
+        ]),
+    bottomNavigationBar: BottomAppBar(
+    elevation: 0,
+    color: Colors.blue[900],
+    child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: <Widget>[
+    FlatButton.icon(
+    onPressed: () {
+    Navigator.pushNamed(context, 'forms_page');
+    },
+    icon: Icon(Icons.insert_drive_file, color: Colors.white),
+    label: Text(
+    "Forms",
+    style:TextStyle(color: Colors.white)),
+    ),
+    FlatButton.icon(
+    onPressed: () {
+    Navigator.pushNamed(context, 'calendar');
+    },
+    icon: Icon(Icons.calendar_today, color: Colors.white),
+    label: Text(
+    "Calendar",
+    style:TextStyle(color: Colors.white)),
+    ),
+    FlatButton.icon(
+    onPressed: () {
+    Navigator.pushNamed(context, 'help');
+    },
+    icon: Icon(
+    Icons.help, color:Colors.white),
+    label: Text(
+    "Help",
+    style:TextStyle(
+    color:Colors.white)),
+    ),
+    ],
+    )
+    ),
     );
   }
 }
