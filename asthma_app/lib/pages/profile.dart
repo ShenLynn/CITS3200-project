@@ -172,7 +172,9 @@ class SideMenu extends StatelessWidget {
               leading: Icon(Icons.airline_seat_flat, color: Colors.blue[900]),
               title: Text('Treatment',
                   style: TextStyle(fontSize: 20.0)),
-              onTap: () => {},
+              onTap: () => {
+                Navigator.pushNamed(context, 'treatment')
+              },
             ),
             ListTile(
               leading: Icon(Icons.child_care, color: Colors.blue[900]),
