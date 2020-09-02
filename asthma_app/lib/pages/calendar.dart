@@ -65,6 +65,7 @@ class _CalendarState extends State<Calendar> {
                 textAlign: TextAlign.center
                 ),
                 decoration: BoxDecoration(
+
                   color: Colors.blue[900],
                 ),
               ),
