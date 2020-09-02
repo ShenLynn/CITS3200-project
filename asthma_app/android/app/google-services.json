@@ -1,0 +1,32 @@
+{
+    "project_info": {
+        "project_number": "207586299202",
+        "firebase_url": "https://asthma-app-cca2a.firebaseio.com",
+        "project_id": "asthma-app-cca2a",
+        "storage_bucket": "asthma-app-cca2a.appspot.com"
+    },
+    "client": [{
+        "client_info": {
+            "mobilesdk_app_id": "1:207586299202:android:93a2c6a293d6c25d694cdb",
+            "android_client_info": {
+                "package_name": "thornburysunaunasteskykariyawasam.co.asthma_app"
+            }
+        },
+        "oauth_client": [{
+            "client_id": "207586299202-n83qn3jcsavt1t85foc0h4gu43mmqklo.apps.googleusercontent.com",
+            "client_type": 3
+        }],
+        "api_key": [{
+            "current_key": "AIzaSyD0-l10-ik5CB8RTDMhC0XhUVjsTJjwVx0"
+        }],
+        "services": {
+            "appinvite_service": {
+                "other_platform_oauth_client": [{
+                    "client_id": "207586299202-n83qn3jcsavt1t85foc0h4gu43mmqklo.apps.googleusercontent.com",
+                    "client_type": 3
+                }]
+            }
+        }
+    }],
+    "configuration_version": "1"
+}
