@@ -9,6 +9,7 @@ import 'package:asthma_app/pages/welcome.dart';
 void main() => runApp(MaterialApp(
   //override default route to calender
   // Application routes
+  initialRoute: "calendar",
   routes: {
     '/': (context) => WelcomePage(),
     'calendar': (context) =>Calendar(),

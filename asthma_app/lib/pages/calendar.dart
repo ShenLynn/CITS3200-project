@@ -1,5 +1,11 @@
+import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+
+
+
+
 
 //Calendar functions as both a calendar and the default home screen
 //setting up home screen
@@ -9,13 +15,52 @@ class Calendar extends StatefulWidget {
 }
 
 class _CalendarState extends State<Calendar> {
+  DateTime _currentDay; //Selected day
+  Map<DateTime, List<dynamic>> _events = {};
+  Map<DateTime, List> _visibleEvents;
   CalendarController _controller;
+  TextEditingController _eventController ;
+  List<dynamic> _selectedEvents =[];
+
+
   @override
   void initState() {
     //TODO implement calendar initstate if required
     super.initState();
+    _eventController = TextEditingController();
     _controller = CalendarController();
+    _currentDay = DateTime.now();
+    _events = {
+      DateTime.parse("2020-09-07"): ["Appointment RPH", "Pickup inhaler"],
+      DateTime.parse("2020-09-20"): ["See Dr Blakey", "Complete asthma claims"]
+    };
+    /**
+    _selectedEvents =_events[_currentDay] ?? [];
+    _visibleEvents = _events;
+    print(_selectedEvents);
+    print(_events[_currentDay]);
+    **/
+
   }
+
+  Widget _buildEventList() {
+    return ListView(
+      children: _selectedEvents
+          .map((event) => Container(
+        decoration: BoxDecoration(
+          border: Border.all(width: 0.8),
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+        child: ListTile(
+          title: Text(event.toString()),
+          onTap: () => print('$event tapped!'),
+        ),
+      ))
+          .toList(),
+    );
+  }
+
   //set up global key for notification bar so we can open it w/ custom button
   final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState >();
 
@@ -93,6 +138,8 @@ class _CalendarState extends State<Calendar> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               TableCalendar(
+                events: _events,
+                calendarController: _controller,
                 initialCalendarFormat: CalendarFormat.month,
               headerStyle: HeaderStyle(
                 formatButtonShowsNext: false,
@@ -104,17 +151,37 @@ class _CalendarState extends State<Calendar> {
                   color: Colors.white
                 )
               ),
+              onDaySelected: (date, events) {
+                  setState(() {
+                    _selectedEvents = events;
+                  });
+              } ,
               calendarStyle: CalendarStyle(
-                todayColor: Colors.blue[300],
+                todayColor: Colors.orange[600],
+                todayStyle: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
                 selectedColor: Colors.blue[900]
               ),
+              ),
+              ... _selectedEvents.map((event) => ListTile(
+              title: Text(
+                event,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.2
 
-              calendarController: _controller,)
+                ),
+                          ),
+              )),
             ],
           ),
         ),
-
-
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          backgroundColor: Colors.blue[900],
+          onPressed: _displayDialog,
+        ),
         // footer of app
         bottomNavigationBar: BottomAppBar(
           elevation: 0,
@@ -156,5 +223,51 @@ class _CalendarState extends State<Calendar> {
       ),
     );
   }
+
+  _displayDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Add an event", textAlign: TextAlign.center,),
+          content: TextField(
+            textAlign: TextAlign.center,
+            decoration: InputDecoration(
+              hintText: "Enter an event",
+              alignLabelWithHint: false,
+              border: UnderlineInputBorder(),
+            ),
+            controller: _eventController,
+          ),
+          actions: <Widget>[
+            FlatButton(
+              color: Colors.blue[900],
+              onPressed: (){
+                //if empty do nothing
+                if(_eventController.text.isEmpty) return;
+                //if events on date already, add to array
+                setState(() {
+                if(_events[_controller.selectedDay] != null) {
+                  _events[_controller.selectedDay].add(_eventController.text);
+                  print("Tried to insert");
+                  print(_events[_controller.selectedDay]);
+                  //if no events on date, create new event.
+                } else {
+                  _events[_controller.selectedDay] = [_eventController.text];
+                }
+                _eventController.clear();
+                //exit out of dialogue
+                Navigator.pop(context);
+                });
+              },
+              child: Text("Add Event"),
+            )
+          ],
+        );
+      }
+    );
+  }
 }
+
+
 
