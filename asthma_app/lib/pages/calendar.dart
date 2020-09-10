@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
-
+import 'package:flutter/material.dart';
 
 
 
@@ -81,7 +81,7 @@ class _CalendarState extends State<Calendar> {
               Navigator.pushNamed(context, 'profile');
             },
           ),
-          title: Text("Asthma App [Alpha]"),
+          title: Text("Asthma App"),
           centerTitle: true,
           actions: [
             IconButton(
@@ -180,8 +180,14 @@ class _CalendarState extends State<Calendar> {
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           backgroundColor: Colors.blue[900],
-          onPressed: _displayDialog,
+          onPressed: () {
+            //_displayDialog,
+            Navigator.pushNamed(context, 'addEvent');
+          }
         ),
+
+
+
         // footer of app
         bottomNavigationBar: BottomAppBar(
           elevation: 0,
