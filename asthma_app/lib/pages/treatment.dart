@@ -4,7 +4,24 @@ class Treatment extends StatefulWidget {
   _TreatmentState createState() => _TreatmentState();
 }
 
+class TreatmentDetails {
+  String name;
+  String details;
+
+  TreatmentDetails({ String name, String details }){
+    this.name = name;
+    this. details = details;
+  }
+}
+
 class _TreatmentState extends State<Treatment> {
+
+  List<TreatmentDetails> treatments = [
+    TreatmentDetails(name: 'Symbicort', details: '200/6 2 puffs twice daily using a turbuhaler'),
+    TreatmentDetails(name: 'Mometason', details: 'Nasal Spray'),
+    TreatmentDetails(name: 'Tiotropoim', details: '2.5mcg 2 puffs once daily using a Respimat.'),
+  ];
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -18,7 +35,34 @@ class _TreatmentState extends State<Treatment> {
           builder: (BuildContext context, ScrollController scrollController){
             return Container(
                 color: Colors.blue[100],
-                child: ListView(
+                child: ListView.builder(
+                  controller: scrollController,
+                  itemCount: treatments.length,
+                  itemBuilder: (BuildContext context, int index){
+                    return Card(
+                        child: ListTile(
+                          onTap: () {},
+                          title: Text(
+                            treatments[index].name,
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                          subtitle: Text(
+                            treatments[index].details,
+                            style: TextStyle(
+                              fontSize: 15.0,
+                              fontStyle: FontStyle.italic,
+                              letterSpacing: 0.5,
+                            ),
+                          )
+                        )
+                    );
+                  }
+                )
+              /*child: ListView(
                     padding: const EdgeInsets.all(8),
                     children: <Widget>[
                       Container(
@@ -114,7 +158,7 @@ class _TreatmentState extends State<Treatment> {
                         )),
                       ),
                     ]
-                )
+                )*/
             );
           },
         ),
