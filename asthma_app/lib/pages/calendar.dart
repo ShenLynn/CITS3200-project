@@ -128,7 +128,7 @@ class _CalendarState extends State<Calendar> {
               },
               icon: Icon(Icons.insert_drive_file, color: Colors.white),
               label: Text(
-                  "Forms",
+                  "Events",
                   style:TextStyle(color: Colors.white)),
             ),
             FlatButton.icon(

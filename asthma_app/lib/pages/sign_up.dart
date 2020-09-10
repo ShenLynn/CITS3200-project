@@ -1,3 +1,4 @@
+import 'package:asthma_app/pages/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -57,8 +58,13 @@ class _SignUpPageState extends State<SignUpPage> {
       formState.save();
       try {
         await Firebase.initializeApp();
-        await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(email: _email, password: _password);
+        UserCredential result = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email, password: _password);
+        User user = result.user;
+        
+        await DatabaseService(uid: user.uid).updataUserData('Firstname middlename lastname',
+            '13/12/2019', '0415363340', 20, '3 Kobe Av Malibu 3000 California', 'e78fg48hgh',
+            'Hi i am a new user');
+
         Navigator.of(context).pop();
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
       } catch (e) {

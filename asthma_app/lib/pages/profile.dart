@@ -1,3 +1,5 @@
+
+import 'package:asthma_app/pages/services/submittedItems.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
@@ -164,15 +166,23 @@ class SideMenu extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.assignment_turned_in, color: Colors.blue[900]),
-              title: Text('Control',
+              title: Text('My Submitions',
                   style: TextStyle(fontSize: 20.0)),
-              onTap: () => {},
+              onTap: () => {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyForms()))
+              },
             ),
             ListTile(
               leading: Icon(Icons.airline_seat_flat, color: Colors.blue[900]),
               title: Text('Treatment',
                   style: TextStyle(fontSize: 20.0)),
               onTap: () => {},
+            ),
+            ListTile(
+              leading: Icon(Icons.airline_seat_flat, color: Colors.blue[900]),
+              title:Text('Update Info',
+                   style: TextStyle(fontSize: 20.0)),
+               onTap:(){},
             ),
             ListTile(
               leading: Icon(Icons.child_care, color: Colors.blue[900]),
