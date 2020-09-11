@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'dart:core';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:cloud_firestore_platform_interface/src/set_options.dart';
 import 'package:intl/intl.dart';
 
 final _titleController = TextEditingController();
@@ -12,6 +14,7 @@ final _descController = TextEditingController();
 TextEditingController _dateController = TextEditingController();
 DateTime _chosenDate;
 final FirebaseAuth auth = FirebaseAuth.instance;
+final FirebaseFirestore firestoreInstance = FirebaseFirestore.instance;
 final User user = auth.currentUser;
 final userid = user.uid;
 final format = DateFormat("yyyy-MM-dd");
@@ -103,6 +106,7 @@ class _addEventState extends State<addEvent> {
                     print(_dateController.text);
                     print(_titleController.text);
                     print(userid);
+                    createEvent();
                     },
                     child: Text(
                         "Add Event",
@@ -118,6 +122,18 @@ class _addEventState extends State<addEvent> {
     );
   }
 }
+
+void createEvent() async {
+
+  await FirebaseFirestore.instance.collection("events").doc(userid).collection(_dateController.text).doc(_dateController.text).setData(
+    {
+      "date" : _dateController.text,
+      "tasks" : FieldValue.arrayUnion([_titleController.text])
+    },
+    SetOptions(merge: true)).then((_) {
+      print("success!");
+  });
+   }
 /**class BasicDateField extends StatelessWidget {
   final format = DateFormat("yyyy-MM-dd");
   @override

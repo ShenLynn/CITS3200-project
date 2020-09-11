@@ -14,7 +14,7 @@ void main ()  async {
   runApp(MaterialApp(
     //override default route to calender
     // Application routes
-    initialRoute: "calendar",
+    //initialRoute: "calendar",
     routes: {
       '/': (context) => WelcomePage(),
       'calendar': (context) => Calendar(),
