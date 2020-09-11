@@ -6,20 +6,25 @@ import 'package:asthma_app/pages/profile.dart';
 import 'package:asthma_app/pages/help.dart';
 import 'package:asthma_app/pages/welcome.dart';
 import 'package:asthma_app/forms/addEvent.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() => runApp(MaterialApp(
-  //override default route to calender
-  // Application routes
-  initialRoute: "calendar",
-  routes: {
-    '/': (context) => WelcomePage(),
-    'calendar': (context) =>Calendar(),
-    'forms_page' : (context) => FormsPage(),
-    'profile' : (context) => Profile(),
-    'help' : (context) => HelpPage(),
-    'addEvent': (context) => addEvent()
-  },
-));
+void main ()  async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MaterialApp(
+    //override default route to calender
+    // Application routes
+    initialRoute: "calendar",
+    routes: {
+      '/': (context) => WelcomePage(),
+      'calendar': (context) => Calendar(),
+      'forms_page': (context) => FormsPage(),
+      'profile': (context) => Profile(),
+      'help': (context) => HelpPage(),
+      'addEvent': (context) => addEvent()
+    },
+  ));
+}
 
 
 

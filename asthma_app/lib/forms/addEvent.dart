@@ -4,12 +4,17 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:intl/intl.dart';
 
 final _titleController = TextEditingController();
 final _descController = TextEditingController();
+TextEditingController _dateController = TextEditingController();
+DateTime _chosenDate;
 final FirebaseAuth auth = FirebaseAuth.instance;
 final User user = auth.currentUser;
 final userid = user.uid;
+final format = DateFormat("yyyy-MM-dd");
 
 class addEvent extends StatefulWidget {
   @override
@@ -44,8 +49,11 @@ class _addEventState extends State<addEvent> {
                 SizedBox(height: 20),
                 TextFormField(
                   controller: _titleController,
-                  textAlign: TextAlign.left,
+                  textAlign: TextAlign.center,
                   decoration: InputDecoration(
+                    fillColor: Colors.blue[900],
+                    focusColor:Colors.blue[900] ,
+                    hoverColor: Colors.blue[900],
                     border: OutlineInputBorder(),
                     hintText: "Enter an event title",
                   ),
@@ -54,6 +62,54 @@ class _addEventState extends State<addEvent> {
                       return "An event title must be supplied";
                     }
                    }
+                ),
+                SizedBox(height: 40),
+                Text(
+                    "Event Date",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                )),
+                SizedBox(height:20),
+                DateTimeField(
+                  controller: _dateController,
+                  format: format,
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                    fillColor: Colors.blue[900],
+                    focusColor:Colors.blue[900] ,
+                    hoverColor: Colors.blue[900],
+                    border: OutlineInputBorder(),
+                    hintText: "Tap to enter a date",
+                  ),
+                  onShowPicker: (context, currentValue) {
+                    return showDatePicker(
+                        context: context,
+                        firstDate: DateTime(1900),
+                        initialDate: currentValue ?? DateTime.now(),
+                        lastDate: DateTime(2100)
+                    ); //.then((date) {
+                      //setState(() {
+                       // _chosenDate = date;
+                       // print(_chosenDate);
+                      //});
+                   // });
+                  },
+                ),
+                SizedBox(height: 40),
+                FlatButton(
+                  color: Colors.blue[900],
+                    onPressed: (){
+                    print(_dateController.text);
+                    print(_titleController.text);
+                    print(userid);
+                    },
+                    child: Text(
+                        "Add Event",
+                      style: TextStyle(
+                        color: Colors.white
+                      ),
+                    )
                 )
               ],
             ),
@@ -62,3 +118,23 @@ class _addEventState extends State<addEvent> {
     );
   }
 }
+/**class BasicDateField extends StatelessWidget {
+  final format = DateFormat("yyyy-MM-dd");
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: <Widget>[
+      Text('Select an event date (${format.pattern})'),
+      DateTimeField(
+        format: format,
+        onShowPicker: (context, currentValue) {
+          return showDatePicker(
+              context: context,
+              firstDate: DateTime(1900),
+              initialDate: currentValue ?? DateTime.now(),
+              lastDate: DateTime(2100));
+        },
+      ),
+    ]);
+  }
+}**/
+
