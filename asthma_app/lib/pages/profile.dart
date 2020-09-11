@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -7,6 +9,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -22,11 +25,28 @@ class _ProfileState extends State<Profile> {
           onPressed: () => _scaffoldKey.currentState.openDrawer()),
         ),
         body: profileTemplate(),
+        bottomNavigationBar: BottomNavigationBar()
         );
+
   }
 }
 
+String getUsername() {
+  final db  = FirebaseFirestore.instance;
+  var personalinfo = db.collection("personalInfo").doc("VRzSF0K0ZHNbksh0OxGZjKrxGeE2");
+  String name = "";
+  personalinfo.get().then((doc) {
+    if (doc.exists) {
+      name = doc.data()["fullname"];
+      print(name);
+    }
+  }
+  );
+  return name;
+}
+
 Widget profileTemplate(){
+  String name = getUsername();
   return SingleChildScrollView(
       child:Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,7 +62,7 @@ Widget profileTemplate(){
                       Align(
                         alignment: Alignment.center,
                         child: Text(
-                          'Joe Bloggs',
+                          getUsername(),
                           style: TextStyle( color: Colors.black,fontSize: 30.0),
                         ),
                       ),
@@ -204,3 +224,48 @@ class SideMenu extends StatelessWidget {
     );
   }
 }
+
+class BottomNavigationBar extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return BottomAppBar(
+        elevation: 0,
+        color: Colors.blue[900],
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            FlatButton.icon(
+              onPressed: () {
+                Navigator.pushNamed(context, 'forms_page');
+              },
+              icon: Icon(Icons.insert_drive_file, color: Colors.white),
+              label: Text(
+                  "Forms",
+                  style:TextStyle(color: Colors.white)),
+            ),
+            FlatButton.icon(
+              onPressed: () {
+                Navigator.pushNamed(context, 'calendar');
+              },
+              icon: Icon(Icons.calendar_today, color: Colors.white),
+              label: Text(
+                  "Calendar",
+                  style:TextStyle(color: Colors.white)),
+            ),
+            FlatButton.icon(
+              onPressed: () {
+                Navigator.pushNamed(context, 'help');
+              },
+              icon: Icon(
+                  Icons.help, color:Colors.white),
+              label: Text(
+                  "Help",
+                  style:TextStyle(
+                      color:Colors.white)),
+            ),
+          ],
+        )
+    );
+}
+}
+
