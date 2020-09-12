@@ -1,4 +1,6 @@
 
+import 'package:asthma_app/pages/AddTreatments.dart';
+import 'package:asthma_app/pages/MyTreatments.dart';
 import 'package:asthma_app/pages/services/submittedItems.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -174,10 +176,18 @@ class SideMenu extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.airline_seat_flat, color: Colors.blue[900]),
-              title: Text('Treatment',
+              title: Text('My Treatments',
                   style: TextStyle(fontSize: 20.0)),
-              onTap: () => {},
+              onTap: () => {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyTreatments()))},
             ),
+            ListTile(
+              leading: Icon(Icons.airline_seat_flat, color: Colors.blue[900]),
+              title: Text('Add Treatments',
+                style: TextStyle(fontSize: 20.0)),
+               onTap: () => {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> AddTreatments()))},
+          ),
             ListTile(
               leading: Icon(Icons.airline_seat_flat, color: Colors.blue[900]),
               title:Text('Update Info',
