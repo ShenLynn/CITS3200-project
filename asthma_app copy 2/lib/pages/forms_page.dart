@@ -1,6 +1,4 @@
 import 'package:asthma_app/Patient_forms/form1.dart';
-import 'package:asthma_app/Patient_forms/form2.dart';
-import 'package:asthma_app/Patient_forms/form3.dart';
 import 'package:flutter/material.dart';
 // Page that will contain all app forms
 class FormsPage extends StatefulWidget {
@@ -32,21 +30,12 @@ class _FormsPageState extends State<FormsPage> {
                 Navigator.push(context,MaterialPageRoute(builder: (context)=>form1()));
               },
             ),
-            SizedBox(width: 10.0, height: 10.0),
-            ListTile(
-              leading: Icon(Icons.assignment, color: Colors.blue[900]),
-              title: Text('Questionnaire on cough impact on your life',
-                  style: TextStyle(fontSize: 20.0)),
-              onTap: (){
-                Navigator.push(context,MaterialPageRoute(builder: (context)=>form2()));
-              },
-            ),
             ListTile(
               leading: Icon(Icons.assignment, color: Colors.blue[900]),
               title: Text('Record Asthma Attack',
                   style: TextStyle(fontSize: 20.0)),
               onTap: (){
-                Navigator.push(context,MaterialPageRoute(builder: (context)=>form3()));
+                Navigator.push(context,MaterialPageRoute(builder: (context)=>form1()));
               },
             )
           ],

@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,30 +9,27 @@ final q2Controller =  TextEditingController();
 final q3Controller =  TextEditingController();
 final q4Controller =  TextEditingController();
 final q5Controller =  TextEditingController();
-final q6Controller =  TextEditingController();
-final q7Controller =  TextEditingController();
-final q8Controller =  TextEditingController();
 final FirebaseAuth auth = FirebaseAuth.instance;
 final User user = auth.currentUser;
 final userid = user.uid;
 
 
-class form1 extends StatefulWidget {
+class form2 extends StatefulWidget {
   @override
-  _form1State createState() => _form1State();
+  _form2State createState() => _form2State();
 }
 
-class _form1State extends State<form1> {
+class _form2State extends State<form2> {
   final databaseReference = FirebaseFirestore.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Mini Asthma Quality Life Questionnaire'),
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(32),
+        appBar: AppBar(
+          title: Text('Questionnaire on Cough Impact'),
+        ),
+        body: SingleChildScrollView(
+          padding: EdgeInsets.all(32),
           child: Form(
               key: _formKey,
               child: Column(
@@ -44,9 +40,9 @@ class _form1State extends State<form1> {
                     controller: nameController,
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'PLEASE ENTER YOUR NAME',
-                      hintStyle: TextStyle(color: Colors.grey)),
+                        border: InputBorder.none,
+                        hintText: 'PLEASE ENTER YOUR NAME',
+                        hintStyle: TextStyle(color: Colors.grey)),
                     validator: (value) {
                       if (value.isEmpty) {
                         return 'Please enter some text';
@@ -70,7 +66,7 @@ class _form1State extends State<form1> {
                       return null;
                     },
                   ),
-                  Text('Feel SHORT OF BREATH as a result of your asthma?',
+                  Text('In the last 2 weeks have you had chest or stomach pains as a result of your cough?',
                       style: TextStyle(fontWeight :FontWeight.bold)),
                   TextFormField(
                     controller: q1Controller,
@@ -87,7 +83,7 @@ class _form1State extends State<form1> {
                       return null;
                     },
                   ),
-                  Text('Feel bothered by or have to avoid DUST in the environment?',
+                  Text('In the last 2 weeks have been bothered by sputum(phlegm) production when you cough?',
                       style: TextStyle(fontWeight :FontWeight.bold)),
                   TextFormField(
                     controller: q2Controller,
@@ -104,7 +100,7 @@ class _form1State extends State<form1> {
                       return null;
                     },
                   ),
-                  Text('Fell FRUSTRATED as a result of your asthma?',
+                  Text('In the last 2 weeks have you been tired because of your cough?',
                       style: TextStyle(fontWeight :FontWeight.bold)),
                   TextFormField(
                     controller: q3Controller,
@@ -121,7 +117,7 @@ class _form1State extends State<form1> {
                       return null;
                     },
                   ),
-                  Text('Feel bothered by COUGHING?',
+                  Text('In the last 2 weeks, have you felt in control of your cough?',
                       style: TextStyle(fontWeight :FontWeight.bold)),
                   TextFormField(
                     controller: q4Controller,
@@ -138,7 +134,7 @@ class _form1State extends State<form1> {
                       return null;
                     },
                   ),
-                  Text('Feel AFRAID OF NOT HAVING YOUR ASTHMA MEDICATION AVAILABLE?',
+                  Text('In the last 2 weeks, have you felt embarrased by your coughing?',
                       style: TextStyle(fontWeight :FontWeight.bold)),
                   TextFormField(
                     controller: q5Controller,
@@ -155,68 +151,33 @@ class _form1State extends State<form1> {
                       return null;
                     },
                   ),
-                  Text('Experience a feeling of CHEST TIGHTNESS OR CHEST HEAVINESS?',
-                      style: TextStyle(fontWeight :FontWeight.bold)),
-                  TextFormField(
-                    controller: q6Controller,
-                    textAlign: TextAlign.left,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'PLEASE ENTER YOUR ANSWER',
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                  ),
-                  Text('Have DIFFICULTY GETTING A GOOD NIGHTS SLEEP as a result of your asthma?',
-                      style: TextStyle(fontWeight :FontWeight.bold)),
-                  TextFormField(
-                    controller: q7Controller,
-                    textAlign: TextAlign.left,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'PLEASE ENTER YOUR ANSWER',
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                  ),
                   RaisedButton(child: Text('Submit Form'),
-                  onPressed:(){
-                    createRecord();
-                    Navigator.pushNamed(context, 'forms_page');
-                  },
+                    onPressed:(){
+                      createRecord();
+                      Navigator.pushNamed(context, 'forms_page');
+                    },
                   )
                 ],
-          )
-      ), //center
-    )
+              )
+          ), //center
+        )
     );
   }
 }
 
 void createRecord() async {
   await FirebaseFirestore.instance.collection("Forms")
-      .doc("$userid").collection('Mini-Asthma-Quality-Life-Questionnaire')
+      .doc("$userid").collection('Questionnaire on Cough Impact')
       .doc().set({
     'firebaseuid' : userid,
     'Name': nameController.text,
     'PatientID': patientidController.text,
-    'How often do you feel breathlessness?': q1Controller.text,
-    'Feel bothered by or have to avoid DUST in the environment?': q2Controller.text,
-    'Fell FRUSTRATED as a result of your asthma?':q3Controller.text,
-    'Feel bothered by COUGHING?': q4Controller.text,
-    'Feel AFRAID OF NOT HAVING YOUR ASTHMA MEDICATION AVAILABLE?': q5Controller.text,
-    'Experience a feeling of CHEST TIGHTNESS OR CHEST HEAVINESS?':q6Controller.text,
-    'Have DIFFICULTY GETTING A GOOD NIGHTS SLEEP as a result of your asthma?' :q7Controller.text
+    'In the last 2 weeks have you had chest or stomach pains as a result of your cough?': q1Controller.text,
+    'In the last 2 weeks have been bothered by sputum(phlegm) production when you cough?': q2Controller.text,
+    'In the last 2 weeks have you been tired because of your cough?':q3Controller.text,
+    'In the last 2 weeks, have you felt in control of your cough?': q4Controller.text,
+    'In the last 2 weeks, have you felt embarrased by your coughing?': q5Controller.text,
+
 
   });
 

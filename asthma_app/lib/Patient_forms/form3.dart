@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,30 +9,26 @@ final q2Controller =  TextEditingController();
 final q3Controller =  TextEditingController();
 final q4Controller =  TextEditingController();
 final q5Controller =  TextEditingController();
-final q6Controller =  TextEditingController();
-final q7Controller =  TextEditingController();
-final q8Controller =  TextEditingController();
 final FirebaseAuth auth = FirebaseAuth.instance;
 final User user = auth.currentUser;
 final userid = user.uid;
 
 
-class form1 extends StatefulWidget {
+class form3 extends StatefulWidget {
   @override
-  _form1State createState() => _form1State();
+  _form3State createState() => _form3State();
 }
 
-class _form1State extends State<form1> {
-  final databaseReference = FirebaseFirestore.instance;
+class _form3State extends State<form3> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Mini Asthma Quality Life Questionnaire'),
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(32),
+        appBar: AppBar(
+          title: Text('Record an Asthma attack'),
+        ),
+        body: SingleChildScrollView(
+          padding: EdgeInsets.all(32),
           child: Form(
               key: _formKey,
               child: Column(
@@ -44,9 +39,9 @@ class _form1State extends State<form1> {
                     controller: nameController,
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'PLEASE ENTER YOUR NAME',
-                      hintStyle: TextStyle(color: Colors.grey)),
+                        border: InputBorder.none,
+                        hintText: 'PLEASE ENTER YOUR NAME',
+                        hintStyle: TextStyle(color: Colors.grey)),
                     validator: (value) {
                       if (value.isEmpty) {
                         return 'Please enter some text';
@@ -70,7 +65,7 @@ class _form1State extends State<form1> {
                       return null;
                     },
                   ),
-                  Text('Feel SHORT OF BREATH as a result of your asthma?',
+                  Text('When did you have the attack(Enter your answer in DD/MM/YYYY)?',
                       style: TextStyle(fontWeight :FontWeight.bold)),
                   TextFormField(
                     controller: q1Controller,
@@ -87,7 +82,7 @@ class _form1State extends State<form1> {
                       return null;
                     },
                   ),
-                  Text('Feel bothered by or have to avoid DUST in the environment?',
+                  Text('What time did it approximately occur?',
                       style: TextStyle(fontWeight :FontWeight.bold)),
                   TextFormField(
                     controller: q2Controller,
@@ -104,7 +99,7 @@ class _form1State extends State<form1> {
                       return null;
                     },
                   ),
-                  Text('Fell FRUSTRATED as a result of your asthma?',
+                  Text('How long did it last for?',
                       style: TextStyle(fontWeight :FontWeight.bold)),
                   TextFormField(
                     controller: q3Controller,
@@ -121,7 +116,7 @@ class _form1State extends State<form1> {
                       return null;
                     },
                   ),
-                  Text('Feel bothered by COUGHING?',
+                  Text('What actions did you take?',
                       style: TextStyle(fontWeight :FontWeight.bold)),
                   TextFormField(
                     controller: q4Controller,
@@ -138,7 +133,7 @@ class _form1State extends State<form1> {
                       return null;
                     },
                   ),
-                  Text('Feel AFRAID OF NOT HAVING YOUR ASTHMA MEDICATION AVAILABLE?',
+                  Text('Please write some additional notes about it',
                       style: TextStyle(fontWeight :FontWeight.bold)),
                   TextFormField(
                     controller: q5Controller,
@@ -155,68 +150,33 @@ class _form1State extends State<form1> {
                       return null;
                     },
                   ),
-                  Text('Experience a feeling of CHEST TIGHTNESS OR CHEST HEAVINESS?',
-                      style: TextStyle(fontWeight :FontWeight.bold)),
-                  TextFormField(
-                    controller: q6Controller,
-                    textAlign: TextAlign.left,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'PLEASE ENTER YOUR ANSWER',
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                  ),
-                  Text('Have DIFFICULTY GETTING A GOOD NIGHTS SLEEP as a result of your asthma?',
-                      style: TextStyle(fontWeight :FontWeight.bold)),
-                  TextFormField(
-                    controller: q7Controller,
-                    textAlign: TextAlign.left,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'PLEASE ENTER YOUR ANSWER',
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                  ),
                   RaisedButton(child: Text('Submit Form'),
-                  onPressed:(){
-                    createRecord();
-                    Navigator.pushNamed(context, 'forms_page');
-                  },
+                    onPressed:(){
+                      createRecord();
+                      Navigator.pushNamed(context, 'forms_page');
+                    },
                   )
                 ],
-          )
-      ), //center
-    )
+              )
+          ), //center
+        )
     );
   }
 }
 
 void createRecord() async {
-  await FirebaseFirestore.instance.collection("Forms")
-      .doc("$userid").collection('Mini-Asthma-Quality-Life-Questionnaire')
+  await FirebaseFirestore.instance.collection("Asthma_attacks")
+      .doc("$userid").collection('Record Asthma attacks')
       .doc().set({
     'firebaseuid' : userid,
     'Name': nameController.text,
     'PatientID': patientidController.text,
-    'How often do you feel breathlessness?': q1Controller.text,
-    'Feel bothered by or have to avoid DUST in the environment?': q2Controller.text,
-    'Fell FRUSTRATED as a result of your asthma?':q3Controller.text,
-    'Feel bothered by COUGHING?': q4Controller.text,
-    'Feel AFRAID OF NOT HAVING YOUR ASTHMA MEDICATION AVAILABLE?': q5Controller.text,
-    'Experience a feeling of CHEST TIGHTNESS OR CHEST HEAVINESS?':q6Controller.text,
-    'Have DIFFICULTY GETTING A GOOD NIGHTS SLEEP as a result of your asthma?' :q7Controller.text
+    'When did you have the attack(Enter your answer in DD/MM/YYYY)?': q1Controller.text,
+    'What time did it approximately occur?': q2Controller.text,
+    'How long did it last for?':q3Controller.text,
+    'What actions did you take?': q4Controller.text,
+    'Please write some additional notes about it': q5Controller.text,
+
 
   });
 

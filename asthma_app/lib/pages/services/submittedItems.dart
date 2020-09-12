@@ -1,10 +1,7 @@
+import 'package:asthma_app/pages/SubmittedForm1.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-DocumentSnapshot snapshot;
-final FirebaseAuth auth = FirebaseAuth.instance;
-final User user = auth.currentUser;
-final userid = user.uid;
 
 class MyForms extends StatefulWidget {
   @override
@@ -14,17 +11,26 @@ class MyForms extends StatefulWidget {
 class _MyFormsState extends State<MyForms>  {
   @override
   Widget build(BuildContext context) {
-    return new StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('Mini-Asthma-Quality-Life-Questionnaire').doc('$userid').snapshots(),
-        builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot){
-          if (snapshot.connectionState == ConnectionState.active){
-            var courseDocument = snapshot.data.data;
-            return ListView.builder(itemBuilder: (_, int index) {
-                return ListTile(title: Text(courseDocument[index]['name']));
+    return Scaffold(
+      appBar: AppBar(title: Text('MyForms'),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ListTile(
+              leading: Icon(Icons.blur_circular, color: Colors.blue[900]),
+              title: Text('Mini Asthma Quality Life Questionnaire',
+                  style: TextStyle(fontSize: 20.0)
+              ),
+              onTap: () => {
+                Navigator.push(context,MaterialPageRoute(builder: (context)=>SubmittedForm1()))
               },
-            );
-          }
-        }
+            )
+          ],
+        ),
+      ),
     );
   }
 }
