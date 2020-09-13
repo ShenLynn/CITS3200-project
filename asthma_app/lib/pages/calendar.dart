@@ -184,20 +184,28 @@ class _CalendarState extends State<Calendar> {
             Row( mainAxisAlignment: MainAxisAlignment.center,
               children: [Text("Events", style: TextStyle(
                 fontSize: 20,
+                fontWeight: FontWeight.w600,
                 decoration: TextDecoration.underline
               ),),SizedBox(width: 20),Icon(Icons.arrow_circle_down_sharp, size: 30,)],
             ),
+            SizedBox(height:15),
 
-            ... _selectedEvents.map((event) => ListTile(
+            ... _selectedEvents.map((event) => Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: ListTile(
+                leading: Icon(Icons.event, color: Colors.blue[900],),
           title: Text(
           event,
           style: TextStyle(
           fontWeight: FontWeight.bold,
-
-          letterSpacing: 1.2
+          color: Colors.grey[800],
+          letterSpacing: 1.25
           )
           ),
           ),
+            ),
            /**   ListView.builder(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
