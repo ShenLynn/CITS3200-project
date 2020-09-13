@@ -27,7 +27,6 @@ class _ProfileState extends State<Profile> {
         body: profileTemplate(),
         bottomNavigationBar: BottomNavigationBar()
         );
-
   }
 }
 
@@ -39,6 +38,7 @@ String getUsername() {
     if (doc.exists) {
       name = doc.data()["fullname"];
       print(name);
+      return name;
     }
   }
   );
@@ -46,7 +46,6 @@ String getUsername() {
 }
 
 Widget profileTemplate(){
-  String name = getUsername();
   return SingleChildScrollView(
       child:Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,9 +71,7 @@ Widget profileTemplate(){
                       Divider(
                         color: Colors.grey,
                         height: 10.0,
-
                       ),
-
                       Text(
                           'Date Of Birth:',
                           style: TextStyle(color: Colors.blue[900], fontSize: 20.0, letterSpacing: 2.0, fontWeight: FontWeight.bold)
