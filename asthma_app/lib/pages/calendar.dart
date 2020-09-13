@@ -30,6 +30,7 @@ class _CalendarState extends State<Calendar> {
   CalendarController _controller;
   TextEditingController _eventController ;
   List<dynamic> _selectedEvents =[];
+  bool dataLoaded = false;
 
   void _getData () {
     firestoreInstance.collection("events1").getDocuments().then((querySnapshot) {
@@ -48,8 +49,6 @@ class _CalendarState extends State<Calendar> {
         });
       });
     });
-    print("Got here");
-    print(_events);
   }
 
 
@@ -61,36 +60,8 @@ class _CalendarState extends State<Calendar> {
     _controller = CalendarController();
     _currentDay = DateTime.now();
     _getData();
-    /**_events = {
-      DateTime.parse("2020-09-07"): ["Appointment RPH", "Pickup inhaler"],
-      DateTime.parse("2020-09-20"): ["See Dr Blakey", "Complete asthma claims"]
-    }; **/
-    /**
-        _selectedEvents =_events[_currentDay] ?? [];
-        _visibleEvents = _events;
-        print(_selectedEvents);
-        print(_events[_currentDay]);
-     **/
-
   }
 
-  Widget _buildEventList() {
-    return ListView(
-      children: _selectedEvents
-          .map((event) => Container(
-        decoration: BoxDecoration(
-          border: Border.all(width: 0.8),
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-        margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-        child: ListTile(
-          title: Text(event.toString()),
-          onTap: () => print('$event tapped!'),
-        ),
-      ))
-          .toList(),
-    );
-  }
 
   //set up global key for notification bar so we can open it w/ custom button
   final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState >();
@@ -209,15 +180,23 @@ class _CalendarState extends State<Calendar> {
                     selectedColor: Colors.blue[900]
                 ),
               ),
+            SizedBox(height:20),
+            Row( mainAxisAlignment: MainAxisAlignment.center,
+              children: [Text("Events", style: TextStyle(
+                fontSize: 20,
+                decoration: TextDecoration.underline
+              ),),SizedBox(width: 20),Icon(Icons.arrow_circle_down_sharp, size: 30,)],
+            ),
 
             ... _selectedEvents.map((event) => ListTile(
           title: Text(
           event,
           style: TextStyle(
           fontWeight: FontWeight.bold,
+
           letterSpacing: 1.2
           )
-          )
+          ),
           ),
            /**   ListView.builder(
                   scrollDirection: Axis.vertical,
@@ -295,65 +274,4 @@ class _CalendarState extends State<Calendar> {
     );
   }
 
-  _displayDialog() {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text("Add an event", textAlign: TextAlign.center,),
-            content: TextField(
-              textAlign: TextAlign.center,
-              decoration: InputDecoration(
-                hintText: "Enter an event",
-                alignLabelWithHint: false,
-                border: UnderlineInputBorder(),
-              ),
-              controller: _eventController,
-            ),
-            actions: <Widget>[
-              FlatButton(
-                color: Colors.blue[900],
-                onPressed: (){
-                  //if empty do nothing
-                  if(_eventController.text.isEmpty) return;
-                  //if events on date already, add to array
-                  setState(() {
-                    if(_events[_controller.selectedDay] != null) {
-                      _events[_controller.selectedDay].add(_eventController.text);
-                      print("Tried to insert");
-                      print(_events[_controller.selectedDay]);
-                      //if no events on date, create new event.
-                    } else {
-                      _events[_controller.selectedDay] = [_eventController.text];
-                    }
-                    _eventController.clear();
-                    //exit out of dialogue
-                    Navigator.pop(context);
-                  });
-                },
-                child: Text("Add Event"),
-              )
-            ],
-          );
-        }
-    );
-  }
 }
-
-/**void _getData () {
-  firestoreInstance.collection("events1").getDocuments().then((querySnapshot) {
-    querySnapshot.documents.forEach((result) {
-      firestoreInstance
-      .collection("events1")
-          .document(userid)
-          .collection("event")
-          .getDocuments()
-          .then((querySnapshot) {
-            querySnapshot.documents.forEach((result) {
-              List<String> items = result.get("events");
-              _events[result.id] = items;
-            });
-      });
-    });
-  });
-} **/
