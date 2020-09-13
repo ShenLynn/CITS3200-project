@@ -103,10 +103,11 @@ class _addEventState extends State<addEvent> {
                 FlatButton(
                   color: Colors.blue[900],
                     onPressed: (){
-                    print(_dateController.text);
-                    print(_titleController.text);
-                    print(userid);
+                   // print(_dateController.text);
+                   // print(_titleController.text);
+                   // print(userid);
                     createEvent();
+                    Navigator.pop(context, true);
                     },
                     child: Text(
                         "Add Event",
@@ -125,7 +126,16 @@ class _addEventState extends State<addEvent> {
 
 void createEvent() async {
 
-  await FirebaseFirestore.instance.collection("events").doc(userid).collection(_dateController.text).doc(_dateController.text).setData(
+  await FirebaseFirestore.instance.collection("events1").doc(userid).collection("event").doc(_dateController.text).setData(
+    {
+      "events" : FieldValue.arrayUnion([_titleController.text])
+    },
+    SetOptions(merge: true)).then((_) {
+      print("Record successfully added");
+  });
+}
+
+  /**await FirebaseFirestore.instance.collection("events").doc(userid).collection(_dateController.text).doc(_dateController.text).setData(
     {
       "date" : _dateController.text,
       "tasks" : FieldValue.arrayUnion([_titleController.text])
@@ -133,7 +143,7 @@ void createEvent() async {
     SetOptions(merge: true)).then((_) {
       print("success!");
   });
-   }
+   } **/
 /**class BasicDateField extends StatelessWidget {
   final format = DateFormat("yyyy-MM-dd");
   @override
