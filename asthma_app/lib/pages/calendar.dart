@@ -1,5 +1,20 @@
+import 'dart:convert';
+import 'package:asthma_app/forms/addEvent.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:flutter/material.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+// Initialising DB stuff
+DocumentSnapshot snapshot;
+final FirebaseAuth auth = FirebaseAuth.instance;
+final User user = auth.currentUser;
+final userid = user.uid;
+
+
 
 //Calendar functions as both a calendar and the default home screen
 //setting up home screen
@@ -9,13 +24,45 @@ class Calendar extends StatefulWidget {
 }
 
 class _CalendarState extends State<Calendar> {
+  DateTime _currentDay; //Selected day
+  Map<DateTime, List<dynamic>> _events = {};
+  Map<DateTime, List> _visibleEvents;
   CalendarController _controller;
+  TextEditingController _eventController ;
+  List<dynamic> _selectedEvents =[];
+  bool dataLoaded = false;
+
+  void _getData () {
+    firestoreInstance.collection("events1").getDocuments().then((querySnapshot) {
+      querySnapshot.documents.forEach((result) {
+        firestoreInstance
+            .collection("events1")
+            .document(userid)
+            .collection("event")
+            .getDocuments()
+            .then((querySnapshot) {
+          querySnapshot.documents.forEach((result) {
+            List<dynamic> items = result.get("events");
+            var parsedDate = DateTime.parse(result.id);
+            _events[parsedDate] = items;
+          });
+        });
+      });
+    });
+  }
+
+
   @override
   void initState() {
     //TODO implement calendar initstate if required
     super.initState();
+    _eventController = TextEditingController();
     _controller = CalendarController();
+    _currentDay = DateTime.now();
+    _getData();
   }
+
+
   //set up global key for notification bar so we can open it w/ custom button
   final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState >();
 
@@ -36,7 +83,7 @@ class _CalendarState extends State<Calendar> {
               Navigator.pushNamed(context, 'profile');
             },
           ),
-          title: Text("Asthma App [Alpha]"),
+          title: Text("Asthma App"),
           centerTitle: true,
           actions: [
             IconButton(
@@ -88,31 +135,109 @@ class _CalendarState extends State<Calendar> {
       ),
 
       //body of app
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            TableCalendar(
-              initialCalendarFormat: CalendarFormat.month,
-              headerStyle: HeaderStyle(
-                  formatButtonShowsNext: false,
-                  formatButtonDecoration: BoxDecoration(
-                    color:Colors.blue[900],
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  formatButtonTextStyle: TextStyle(
-                      color: Colors.white
-                  )
-              ),
-              calendarStyle: CalendarStyle(
-                  todayColor: Colors.blue[300],
-                  selectedColor: Colors.blue[900]
-              ),
 
-              calendarController: _controller,)
-          ],
-        ),
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection("events1")
+        .doc(userid).collection("event").snapshots(),
+        builder: (context, snapshots){
+          if (snapshots.data == null) return CircularProgressIndicator();
+          _getData();
+          //num numDocs = snapshots.data.documents.length;
+         // num index = 0;
+         // for (index; index< numDocs+1; index++) {
+          //  _events[snapshots.data.docs]
+        //  }
+         // DocumentSnapshot dateData = snapshots.data.docs[index];
+
+        return SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              TableCalendar(
+                events: _events,
+                calendarController: _controller,
+                initialCalendarFormat: CalendarFormat.month,
+                headerStyle: HeaderStyle(
+                    formatButtonShowsNext: false,
+                    formatButtonDecoration: BoxDecoration(
+                      color:Colors.blue[900],
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    formatButtonTextStyle: TextStyle(
+                        color: Colors.white
+                    )
+                ),
+                onDaySelected: (date, events) {
+                  setState(() {
+                    _selectedEvents = events;
+                  });
+                } ,
+                calendarStyle: CalendarStyle(
+                    todayColor: Colors.orange[600],
+                    todayStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                    selectedColor: Colors.blue[900]
+                ),
+              ),
+            SizedBox(height:20),
+            Row( mainAxisAlignment: MainAxisAlignment.center,
+              children: [Text("Events", style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                decoration: TextDecoration.underline
+              ),),SizedBox(width: 20),Icon(Icons.arrow_circle_down_sharp, size: 30,)],
+            ),
+            SizedBox(height:15),
+
+            ... _selectedEvents.map((event) => Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: ListTile(
+                leading: Icon(Icons.event, color: Colors.blue[900],),
+          title: Text(
+          event,
+          style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.grey[800],
+          letterSpacing: 1.25
+          )
+          ),
+          ),
+            ),
+           /**   ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                itemCount: snapshots.data.documents.length,
+                itemBuilder: (context, index) {
+                  DocumentSnapshot date1 = snapshots.data.docs[index];
+                  print(date1.data()['events']);
+                  return ListTile(
+                      leading: Text(date1.data()['events'].toString()));
+                }
+                ), **/
+            )]
+          )
+        );
+        }),
+              /**... _selectedEvents.map((event) => ListTile(
+                title: Text(
+                  event,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.2),),)), **/
+
+
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          backgroundColor: Colors.blue[900],
+          onPressed: () {
+            //_displayDialog,
+            Navigator.pushNamed(context, 'addEvent');
+          }
       ),
+
 
 
       // footer of app
