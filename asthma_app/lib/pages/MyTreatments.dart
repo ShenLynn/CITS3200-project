@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+final FirebaseAuth auth = FirebaseAuth.instance;
+final User user = auth.currentUser;
+final userid = user.uid;
 
 class MyTreatments extends StatefulWidget {
   @override
@@ -12,45 +15,32 @@ class _MyTreatmentsState extends State<MyTreatments> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Current Treatment'),
+        title: Text('Current Treatments'),
       ),
-      body: SizedBox.expand(
-        child: DraggableScrollableSheet(
-          initialChildSize: 1.0,
-          minChildSize: 0,
-          maxChildSize: 1.0,
-          builder: (BuildContext context, ScrollController scrollController){
-            return Container(
-                color: Colors.blue[100],
-                child: ListView.builder(
-                    controller: scrollController,
-                    itemBuilder: (BuildContext context, int index){
-                      return Card(
-                          child: ListTile(
-                              onTap: () {},
-                              title: Text(
-                                'HELLO',
-                                style: TextStyle(
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 0.5,
-                                ),
-                              ),
-                              subtitle: Text(
-                                'HELLO',
-                                style: TextStyle(
-                                  fontSize: 15.0,
-                                  fontStyle: FontStyle.italic,
-                                  letterSpacing: 0.5,
-                                ),
-                              )
-                          )
-                      );
-                    }
-                )
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection("Treatments").doc("$userid").collection('Individual Treatments').snapshots(),
+        builder: (context,snapshots){
+          if (snapshots.data == null) return CircularProgressIndicator();
+            return ListView.builder(
+                itemCount: snapshots.data.documents.length,
+                itemBuilder: (context,index){
+                  DocumentSnapshot treatments = snapshots.data.docs[index];
+                  return Card(
+                    child: ListTile(
+                      onTap:(){},
+                      title:Text(treatments.data()['Name of the Treatment'],
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                      subtitle: Text(treatments.data()['Treatment Usage']),
+                    ),
+                  );
+                }
             );
-          },
-        ),
+          }
       ),
     );
   }

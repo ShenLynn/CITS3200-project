@@ -150,8 +150,8 @@ class _AddTreatmentsState extends State<AddTreatments> {
 
 void createRecord() async {
   await FirebaseFirestore.instance.collection("Treatments")
-      .doc("$userid").collection('$nameOfTreatment')
-      .doc().set({
+      .doc("$userid").collection('Individual Treatments')
+      .doc('$nameOfTreatment').set({
     'firebaseuid' : userid,
     'Name': nameController.text,
     'PatientID': patientidController.text,
