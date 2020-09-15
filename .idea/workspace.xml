@@ -4,13 +4,15 @@
     <list default="true" id="1a624eff-741f-4366-a59a-223cf8f7d4f2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/CITS3200-project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CITS3200-project.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/asthma_app/lib/pages/profilefiles/profile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/asthma_app/lib/pages/profilefiles/profile.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/asthma_app/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/asthma_app/pubspec.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Nexus_6_API_30" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Nexus_6_API_29" />
   <component name="FavoritesManager">
     <favorites_list name="CITS3200-project" />
   </component>
@@ -48,15 +50,10 @@
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RunManager">
-    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter" temporary="true" nameIsGenerated="true">
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter" nameIsGenerated="true">
       <option name="filePath" value="$PROJECT_DIR$/asthma_app/lib/main.dart" />
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Flutter.main.dart" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -72,11 +69,12 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="444" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599036606287">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="496" y="213" width="1156" height="694" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1600151341756">
+      <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="444" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1599036606287" />
     <state x="2364" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1598797942434" />
+    <state x="496" y="213" width="1156" height="694" key="#com.intellij.execution.impl.EditConfigurationsDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1600151341756" />
     <state x="719" y="319" key="#com.intellij.ide.util.TreeFileChooserDialog" timestamp="1599036604837">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -117,13 +115,22 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2411" y="171" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1598798218443" />
-    <state x="213" y="294" key="com.intellij.ide.util.TipDialog" timestamp="1600078793175">
-      <screen x="0" y="23" width="1440" height="877" />
+    <state x="167" y="125" width="1653" height="855" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1600151514406">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="167" y="125" width="1653" height="855" key="com.android.tools.idea.avdmanager.AvdListDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1600151514406" />
+    <state x="341" y="352" key="com.intellij.ide.util.TipDialog" timestamp="1600151551902">
+      <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="213" y="294" key="com.intellij.ide.util.TipDialog/0.23.1440.877/-219.-1057.1920.1057@0.23.1440.877" timestamp="1600078793175" />
+    <state x="341" y="352" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1600151551902" />
     <state x="2508" y="454" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1598797872386">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2508" y="454" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1598797872386" />
+    <state x="572" y="44" width="840" height="1034" key="search.everywhere.popup" timestamp="1600151510102">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="572" y="44" width="840" height="1034" key="search.everywhere.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1600151510102" />
   </component>
 </project>

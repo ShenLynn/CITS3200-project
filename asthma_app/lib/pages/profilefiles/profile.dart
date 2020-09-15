@@ -167,67 +167,83 @@ class SideMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          DrawerHeader(
-            decoration: BoxDecoration(
-                color: Colors.blue[900],
-            ),
-            child: Center(
-              child: Text(
-                'My Asthma Profile',
-                style: TextStyle(color: Colors.white, fontSize: 30.0),
+        child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.blue[900],
+                ),
+                child: Center(
+                  child: Text(
+                    'My Asthma Profile',
+                    style: TextStyle(color: Colors.white, fontSize: 30.0),
+                  ),
+                ),
               ),
-            ),
-    ),
-          SizedBox(height: 30.0),
-            ListTile(
-              leading: Icon(Icons.blur_circular, color: Colors.blue[900]),
-              title: Text('Diagnosis',
-                style: TextStyle(fontSize: 20.0)
+              SizedBox(height: 30.0),
+              ListTile(
+                leading: Icon(Icons.blur_circular, color: Colors.blue[900]),
+                title: Text('Diagnosis',
+                    style: TextStyle(fontSize: 20.0)
+                ),
+                onTap: () => {},
               ),
-              onTap: () => {},
-            ),
-            ListTile(
-              leading: Icon(Icons.assignment_turned_in, color: Colors.blue[900]),
-              title: Text('Control',
-                  style: TextStyle(fontSize: 20.0)),
-              onTap: () => {},
-            ),
-            ListTile(
-              leading: Icon(Icons.airline_seat_flat, color: Colors.blue[900]),
-              title: Text('Treatment',
-                  style: TextStyle(fontSize: 20.0)),
-              onTap: () => {},
-            ),
-            ListTile(
-              leading: Icon(Icons.child_care, color: Colors.blue[900]),
-              title: Text('Related problems',
-                  style: TextStyle(fontSize: 20.0)),
-              onTap: () => {},
-            ),
-            ListTile(
-              leading: Icon(Icons.contacts, color: Colors.blue[900]),
-              title: Text('Contact details',
-                  style: TextStyle(fontSize: 20.0)),
-              onTap: () => {},
-            ),
-            SizedBox(height: 30.0),
-            ListTile(
-              leading: Icon(Icons.settings, color: Colors.blue[900]),
-              title: Text('Settings',
-                  style: TextStyle(fontSize: 20.0)),
-              onTap: () => {},
-            ),
-            ListTile(
-              leading: Icon(Icons.power_settings_new, color: Colors.blue[900]),
-              title: Text('Log out',
-                  style: TextStyle(fontSize: 20.0)),
-              onTap: () => {},
-            ),
-        ]
-      )
+              ListTile(
+                leading: Icon(Icons.assignment_turned_in, color: Colors.blue[900]),
+                title: Text('Control',
+                    style: TextStyle(fontSize: 20.0)),
+                onTap: () => {},
+              ),
+              ListTile(
+                leading: Icon(Icons.assignment_turned_in, color: Colors.blue[900]),
+                title: Text('My Submitions',
+                    style: TextStyle(fontSize: 20.0)),
+                onTap: () => {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> MyForms()))
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.airline_seat_flat, color: Colors.blue[900]),
+                title: Text('My Treatments',
+                    style: TextStyle(fontSize: 20.0)),
+                onTap: () => {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> MyTreatments()))},
+              ),
+              ListTile(
+                leading: Icon(Icons.airline_seat_flat, color: Colors.blue[900]),
+                title: Text('Add Treatments',
+                    style: TextStyle(fontSize: 20.0)),
+                onTap: () => {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> AddTreatments()))},
+              ),
+              ListTile(
+                leading: Icon(Icons.child_care, color: Colors.blue[900]),
+                title: Text('Related problems',
+                    style: TextStyle(fontSize: 20.0)),
+                onTap: () => {},
+              ),
+              ListTile(
+                leading: Icon(Icons.contacts, color: Colors.blue[900]),
+                title: Text('Contact details',
+                    style: TextStyle(fontSize: 20.0)),
+                onTap: () => {},
+              ),
+              SizedBox(height: 30.0),
+              ListTile(
+                leading: Icon(Icons.settings, color: Colors.blue[900]),
+                title: Text('Settings',
+                    style: TextStyle(fontSize: 20.0)),
+                onTap: () => {},
+              ),
+              ListTile(
+                leading: Icon(Icons.power_settings_new, color: Colors.blue[900]),
+                title: Text('Log out',
+                    style: TextStyle(fontSize: 20.0)),
+                onTap: () => {},
+              ),
+            ]
+        )
     );
   }
 }
