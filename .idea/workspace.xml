@@ -2,13 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1a624eff-741f-4366-a59a-223cf8f7d4f2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/asthma_app/lib/pages/calendar.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/CITS3200-project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CITS3200-project.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Nexus_6_API_30" />
   <component name="FavoritesManager">
     <favorites_list name="CITS3200-project" />
   </component>
@@ -115,6 +117,10 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2411" y="171" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1598798218443" />
+    <state x="213" y="294" key="com.intellij.ide.util.TipDialog" timestamp="1600078793175">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="213" y="294" key="com.intellij.ide.util.TipDialog/0.23.1440.877/-219.-1057.1920.1057@0.23.1440.877" timestamp="1600078793175" />
     <state x="2508" y="454" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1598797872386">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>

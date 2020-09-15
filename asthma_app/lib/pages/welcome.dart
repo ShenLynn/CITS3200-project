@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:asthma_app/pages/signIn.dart';
 import 'package:asthma_app/pages/sign_up.dart';
 
+
 class WelcomePage extends StatefulWidget {
   @override
   _WelcomePageState createState() => _WelcomePageState();
