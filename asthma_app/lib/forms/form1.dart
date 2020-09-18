@@ -16,7 +16,7 @@ final q8Controller =  TextEditingController();
 final FirebaseAuth auth = FirebaseAuth.instance;
 final User user = auth.currentUser;
 final userid = user.uid;
-
+final userName = user.displayName;
 
 class form1 extends StatefulWidget {
   @override
@@ -205,7 +205,7 @@ class _form1State extends State<form1> {
 
 void createRecord() async {
   await FirebaseFirestore.instance.collection("Forms")
-      .doc("$userid").collection('Mini-Asthma-Quality-Life-Questionnaire')
+      .doc("$userName").collection('Mini-Asthma-Quality-Life-Questionnaire')
       .doc().set({
     'firebaseuid' : userid,
     'Name': nameController.text,
