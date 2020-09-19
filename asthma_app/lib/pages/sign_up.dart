@@ -80,7 +80,7 @@ class _SignUpPageState extends State<SignUpPage> {
         await FirebaseAuth.instance.currentUser.updateProfile(displayName:_fullname);
         User user = result.user;
         String userUserName = user.displayName;
-        await DatabaseService(uid: user.uid).updataUserData(
+        await DatabaseService(username: _fullname).updataUserData(
             'Firstname middlename lastname',
             'DD/MM/YYYY',
             'Enter phone number with country code',

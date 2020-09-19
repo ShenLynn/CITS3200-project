@@ -3,15 +3,15 @@ import 'package:asthma_app/models/user.dart';
 
 class DatabaseService {
   //constructor
-  final String uid;
-  DatabaseService({this.uid});
+  final String username;
+  DatabaseService({this.username});
 
   //collection reference
   final CollectionReference personalInfoColletion =
-      FirebaseFirestore.instance.collection('PersonalInfo');
+      FirebaseFirestore.instance.collection('PersonalInfo2');
   Future updataUserData(String fullname, String dob, String phonenumber,
       int age, String address, String personalid, String aboutme) async {
-    return await personalInfoColletion.doc(uid).set({
+    return await personalInfoColletion.doc(username).set({
       'fullname': fullname,
       'dob': dob,
       'phonenumber': phonenumber,
@@ -24,7 +24,7 @@ class DatabaseService {
 
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
     return UserData(
-        uid: uid,
+        uid: username,
         fullname: snapshot.data()['name'],
         dob: snapshot.data()['dob'],
         phonenumber: snapshot.data()['phonenumber'],
@@ -36,7 +36,7 @@ class DatabaseService {
 
   Stream<UserData> get personalInfo {
     return personalInfoColletion
-        .doc(uid)
+        .doc(username)
         .snapshots()
         .map(_userDataFromSnapshot);
   }

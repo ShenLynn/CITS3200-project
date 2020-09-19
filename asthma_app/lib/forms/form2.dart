@@ -9,9 +9,11 @@ final q2Controller =  TextEditingController();
 final q3Controller =  TextEditingController();
 final q4Controller =  TextEditingController();
 final q5Controller =  TextEditingController();
+List<String> _answers = ['0', '1', '2', '3', '4', '5', '6']; // Option 2
+String _q1selectedOption;
 final FirebaseAuth auth = FirebaseAuth.instance;
 final User user = auth.currentUser;
-final userid = user.uid;
+final username = user.displayName;
 
 
 class form2 extends StatefulWidget {
@@ -26,7 +28,8 @@ class _form2State extends State<form2> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Questionnaire on Cough Impact'),
+          title: Text('ACQ-5'),
+          centerTitle: true,
         ),
         body: SingleChildScrollView(
           padding: EdgeInsets.all(32),
@@ -35,54 +38,25 @@ class _form2State extends State<form2> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Name', style: TextStyle(fontWeight :FontWeight.bold)),
-                  TextFormField(
-                    controller: nameController,
-                    textAlign: TextAlign.left,
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'PLEASE ENTER YOUR NAME',
-                        hintStyle: TextStyle(color: Colors.grey)),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                  ),
-                  Text('Patient ID',style: TextStyle(fontWeight :FontWeight.bold)),
-                  TextFormField(
-                    controller: patientidController,
-                    textAlign: TextAlign.left,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'PLEASE ENTER YOUR PATIENT ID',
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                  ),
-                  Text('In the last 2 weeks have you had chest or stomach pains as a result of your cough?',
+                  Text('Please answer the below questions on a scale from 0-6 with 0 being the lest and 6 being the most',
+                      style: TextStyle(fontWeight :FontWeight.bold, color: Colors.red)),
+                  SizedBox(height: 20,),
+                  Text('Q1(Woken during the night)',
                       style: TextStyle(fontWeight :FontWeight.bold)),
-                  TextFormField(
-                    controller: q1Controller,
-                    textAlign: TextAlign.left,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'PLEASE ENTER YOUR ANSWER',
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                  ),
+                  DropdownButton(
+                    value: _q1selectedOption,
+                    onChanged: (newValue){
+                    setState(() {
+                      _q1selectedOption= newValue;
+                    });
+                  },
+                      items:_answers.map((location){
+                        return DropdownMenuItem(
+                          child: new Text(location),
+                          value: location,
+                        );
+                      }).toList(),),
+                  Text('$_q1selectedOption'),
                   Text('In the last 2 weeks have been bothered by sputum(phlegm) production when you cough?',
                       style: TextStyle(fontWeight :FontWeight.bold)),
                   TextFormField(
@@ -167,10 +141,8 @@ class _form2State extends State<form2> {
 
 void createRecord() async {
   await FirebaseFirestore.instance.collection("Forms")
-      .doc("$userid").collection('Questionnaire on Cough Impact')
+      .doc("$username").collection('Questionnaire on Cough Impact')
       .doc().set({
-    'firebaseuid' : userid,
-    'Name': nameController.text,
     'PatientID': patientidController.text,
     'In the last 2 weeks have you had chest or stomach pains as a result of your cough?': q1Controller.text,
     'In the last 2 weeks have been bothered by sputum(phlegm) production when you cough?': q2Controller.text,
