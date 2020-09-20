@@ -1,9 +1,12 @@
+import 'package:asthma_app/pages/AddTreatments.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 final FirebaseAuth auth = FirebaseAuth.instance;
 final User user = auth.currentUser;
 final userid = user.uid;
+final userName = user.displayName;
 
 class MyTreatments extends StatefulWidget {
   @override
@@ -12,24 +15,6 @@ class MyTreatments extends StatefulWidget {
 
 class _MyTreatmentsState extends State<MyTreatments> {
 
-  Future<bool> updateDialog(BuildContext context, selectedDoc) async {
-    return showDialog(
-        context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context){
-          return AlertDialog(
-            title: Text('Update Data'),
-            content: Column(
-              children: [
-                TextField(
-
-                )
-              ],
-            ),
-          );
-      }
-    );
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +22,7 @@ class _MyTreatmentsState extends State<MyTreatments> {
         title: Text('Current Treatments'),
       ),
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection("Treatments").doc("$userid").collection('Individual Treatments').snapshots(),
+        stream: FirebaseFirestore.instance.collection("Treatments").doc("$userName").collection('Individual Treatments').snapshots(),
         builder: (context,snapshots){
           if (snapshots.data == null) return CircularProgressIndicator();
             return ListView.builder(
@@ -57,7 +42,13 @@ class _MyTreatmentsState extends State<MyTreatments> {
                               letterSpacing: 0.5,
                             ),
                             ),
-                             subtitle: Text(treatments.data()['Treatment Usage']),
+                             subtitle: Column(
+                               crossAxisAlignment: CrossAxisAlignment.start,
+                               children: [
+                                 Text(treatments.data()['Treatment Dosage'],style:TextStyle(fontWeight :FontWeight.bold, fontSize: 16),),
+                                 Text('Device Used:'+'  '+ treatments.data()['Treatment Device'],style:TextStyle(fontWeight :FontWeight.bold, fontSize: 16),)
+                               ],
+                             ),
                            ),
                           ButtonBar(
                             children: <Widget>[
@@ -88,6 +79,13 @@ class _MyTreatmentsState extends State<MyTreatments> {
             );
           }
       ),
+        floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.add),
+            backgroundColor: Colors.blue[900],
+            onPressed: () {
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>AddTreatments()));
+            }
+        )
     );
   }
 }

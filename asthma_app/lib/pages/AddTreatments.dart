@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-final nameController = TextEditingController();
-final patientidController =  TextEditingController();
+
 final TreatmentNameController =  TextEditingController();
-final String nameOfTreatment = TreatmentNameController.text;
-final TreatmentUsageController =  TextEditingController();
-final TreatmentNotesController =  TextEditingController();
+final TreatmentDeviceController =  TextEditingController();
+final TreatmentDosageController =  TextEditingController();
 final TreatmentDurationController =  TextEditingController();
+
 final FirebaseAuth auth = FirebaseAuth.instance;
 final User user = auth.currentUser;
 final userid = user.uid;
+final userName = user.displayName;
 
 class AddTreatments extends StatefulWidget {
   @override
@@ -35,37 +35,6 @@ class _AddTreatmentsState extends State<AddTreatments> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Name', style: TextStyle(fontWeight :FontWeight.bold)),
-                  TextFormField(
-                    controller: nameController,
-                    textAlign: TextAlign.left,
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'PLEASE ENTER YOUR NAME',
-                        hintStyle: TextStyle(color: Colors.grey)),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                  ),
-                  Text('Patient ID',style: TextStyle(fontWeight :FontWeight.bold)),
-                  TextFormField(
-                    controller: patientidController,
-                    textAlign: TextAlign.left,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'PLEASE ENTER YOUR PATIENT ID',
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                  ),
                   Text('Name of the Treatment',
                       style: TextStyle(fontWeight :FontWeight.bold)),
                   TextFormField(
@@ -83,10 +52,10 @@ class _AddTreatmentsState extends State<AddTreatments> {
                       return null;
                     },
                   ),
-                  Text('Treatment Usage:',
+                  Text('Deviced used for this treatment:',
                       style: TextStyle(fontWeight :FontWeight.bold)),
                   TextFormField(
-                    controller: TreatmentUsageController,
+                    controller: TreatmentDeviceController,
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
                       border: InputBorder.none,
@@ -100,10 +69,10 @@ class _AddTreatmentsState extends State<AddTreatments> {
                       return null;
                     },
                   ),
-                  Text('Notes about the treatment:',
+                  Text('Treatment dosage',
                       style: TextStyle(fontWeight :FontWeight.bold)),
                   TextFormField(
-                    controller: TreatmentNotesController,
+                    controller: TreatmentDosageController,
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
                       border: InputBorder.none,
@@ -150,14 +119,11 @@ class _AddTreatmentsState extends State<AddTreatments> {
 
 void createRecord() async {
   await FirebaseFirestore.instance.collection("Treatments")
-      .doc("$userid").collection('Individual Treatments')
-      .doc('$nameOfTreatment').set({
-    'firebaseuid' : userid,
-    'Name': nameController.text,
-    'PatientID': patientidController.text,
+      .doc("$userName").collection('Individual Treatments')
+      .doc(TreatmentNameController.text).set({
     'Name of the Treatment': TreatmentNameController.text,
-    'Treatment Usage': TreatmentUsageController.text,
-    'Treatment Notes':TreatmentNotesController.text,
+    'Treatment Dosage': TreatmentDosageController.text,
+    'Treatment Device': TreatmentDeviceController.text,
     'Treatment Duration': TreatmentDurationController.text,
   });
 
