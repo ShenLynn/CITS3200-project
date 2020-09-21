@@ -87,7 +87,8 @@ class _SignUpPageState extends State<SignUpPage> {
             20,
             'Enter your full address',
             'Enter your patient ID',
-            'Hi i am a new user');
+            'Hi i am a new user',
+            'Clinicianemail@gmail.com');
         Navigator.of(context).pop();
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => LoginPage()));

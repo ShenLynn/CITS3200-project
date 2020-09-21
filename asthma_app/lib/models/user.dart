@@ -16,5 +16,5 @@ class UserData {
       this.age,
       this.address,
       this.personalid,
-      this.aboutme});
+      this.aboutme, clinicianEmail});
 }

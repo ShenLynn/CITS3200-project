@@ -46,7 +46,7 @@ class _MyTreatmentsState extends State<MyTreatments> {
                                crossAxisAlignment: CrossAxisAlignment.start,
                                children: [
                                  Text(treatments.data()['Treatment Dosage'],style:TextStyle(fontWeight :FontWeight.bold, fontSize: 16),),
-                                 Text('Device Used:'+'  '+ treatments.data()['Treatment Device'],style:TextStyle(fontWeight :FontWeight.bold, fontSize: 16),)
+                                 Text('Devices Used:'+'  '+ treatments.data()['Treatment Device'],style:TextStyle(fontWeight :FontWeight.bold, fontSize: 16),)
                                ],
                              ),
                            ),

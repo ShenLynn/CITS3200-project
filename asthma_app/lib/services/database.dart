@@ -8,9 +8,9 @@ class DatabaseService {
 
   //collection reference
   final CollectionReference personalInfoColletion =
-      FirebaseFirestore.instance.collection('PersonalInfo2');
+      FirebaseFirestore.instance.collection('PersonalInfo3');
   Future updataUserData(String fullname, String dob, String phonenumber,
-      int age, String address, String personalid, String aboutme) async {
+      int age, String address, String personalid, String aboutme, String clinicianEmail) async {
     return await personalInfoColletion.doc(username).set({
       'fullname': fullname,
       'dob': dob,
@@ -18,7 +18,8 @@ class DatabaseService {
       'age': age,
       'address': address,
       'personalid': personalid,
-      'aboutme': aboutme
+      'aboutme': aboutme,
+      'clinicianEmail':clinicianEmail
     });
   }
 
@@ -31,7 +32,8 @@ class DatabaseService {
         age: snapshot.data()['age'],
         address: snapshot.data()['address'],
         personalid: snapshot.data()['personalid'],
-        aboutme: snapshot.data()['aboutme']);
+        aboutme: snapshot.data()['aboutme'],
+        clinicianEmail:snapshot.data()["clinicianEmail"]);
   }
 
   Stream<UserData> get personalInfo {
