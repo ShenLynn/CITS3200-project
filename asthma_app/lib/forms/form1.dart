@@ -15,6 +15,7 @@ final q7Controller =  TextEditingController();
 final q8Controller =  TextEditingController();
 final FirebaseAuth auth = FirebaseAuth.instance;
 final User user = auth.currentUser;
+final userName = user.displayName;
 final userid = user.uid;
 
 
@@ -205,7 +206,7 @@ class _form1State extends State<form1> {
 
 void createRecord() async {
   await FirebaseFirestore.instance.collection("Forms")
-      .doc("$userid").collection('Mini-Asthma-Quality-Life-Questionnaire')
+      .doc("$userName").collection('Mini-Asthma-Quality-Life-Questionnaire')
       .doc().set({
     'firebaseuid' : userid,
     'Name': nameController.text,
