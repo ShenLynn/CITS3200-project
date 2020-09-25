@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:asthma_app/models/user.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class DatabaseService {
   //constructor
@@ -12,7 +14,7 @@ class DatabaseService {
 
   Future updataUserData(String fullname, String dob, String phonenumber,
       int age, String address, String personalid, String aboutme) async {
-    return await personalInfoColletion.doc(username).set({
+    return await personalInfoColletion.doc(getcurrentUsername()).set({
       'fullname': fullname,
       'dob': dob,
       'phonenumber': phonenumber,
@@ -24,9 +26,8 @@ class DatabaseService {
   }
 
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
-    print("this is username" + username);
+    print(snapshot);
     return UserData(
-        uid: username,
         fullname: snapshot.data()['fullname'] ?? "",
         dob: snapshot.data()['dob'] ?? "",
         phonenumber: snapshot.data()['phonenumber'] ?? "",
@@ -36,8 +37,12 @@ class DatabaseService {
         aboutme: snapshot.data()['aboutme'])?? "";
   }
 
-  Stream<UserData> get personalInfo {
+  String getcurrentUsername(){
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    return auth.currentUser.displayName;
+  }
 
-    return personalInfoColletion.doc(username).snapshots().map(_userDataFromSnapshot);
+  Stream<UserData> get personalInfo {
+    return personalInfoColletion.doc(getcurrentUsername()).snapshots().map(_userDataFromSnapshot);
   }
 }

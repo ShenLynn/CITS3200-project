@@ -45,6 +45,7 @@ class ProfileTemplate extends StatelessWidget {
   @override
   Widget build(BuildContext context){
     final info = Provider.of<UserData>(context);
+    if(info == null) return CircularProgressIndicator();
     return SingleChildScrollView(
         child:Column(
             crossAxisAlignment: CrossAxisAlignment.start,

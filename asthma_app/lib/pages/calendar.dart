@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+
 // Initialising DB stuff
 DocumentSnapshot snapshot;
 final FirebaseAuth auth = FirebaseAuth.instance;
@@ -182,11 +183,11 @@ class _CalendarState extends State<Calendar> {
               ),
             SizedBox(height:20),
             Row( mainAxisAlignment: MainAxisAlignment.center,
-              children: [Text("Events", style: TextStyle(
+              children: [Text("event", style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
                 decoration: TextDecoration.underline
-              ),),SizedBox(width: 20),Icon(Icons.arrow_circle_down_sharp, size: 30,)],
+              ),),SizedBox(width: 20),Icon(Icons.arrow_downward, size: 30,)],
             ),
             SizedBox(height:15),
 
