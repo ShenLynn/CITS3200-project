@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:asthma_app/pages/calendar.dart';
 import 'package:asthma_app/pages/login.dart';
 import 'package:asthma_app/pages/forms_page.dart';
-import 'package:asthma_app/pages/profilefiles/profile.dart';
+import 'package:asthma_app/pages/profile.dart';
 import 'package:asthma_app/pages/help.dart';
 import 'package:asthma_app/pages/welcome.dart';
 import 'package:asthma_app/forms/addEvent.dart';
@@ -12,6 +12,9 @@ void main ()  async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MaterialApp(
+    theme: ThemeData(
+      primaryColor: Colors.blue[900]
+    ),
     //override default route to calender
     // Application routes
     //initialRoute: "calendar",

@@ -7,6 +7,8 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
 
 // Initialising DB stuff
 DocumentSnapshot snapshot;
@@ -31,6 +33,10 @@ class _CalendarState extends State<Calendar> {
   TextEditingController _eventController ;
   List<dynamic> _selectedEvents =[];
   bool dataLoaded = false;
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+  var initializationSettingsAndroid;
+  var initializationSettingsIOS;
+  var initializationSettings;
 
   void _getData () {
     firestoreInstance.collection("events1").getDocuments().then((querySnapshot) {
@@ -60,6 +66,36 @@ class _CalendarState extends State<Calendar> {
     _controller = CalendarController();
     _currentDay = DateTime.now();
     _getData();
+    initializationSettingsAndroid = new AndroidInitializationSettings('app_icon');
+    initializationSettingsIOS = new IOSInitializationSettings(
+      onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+    initializationSettings = new InitializationSettings(
+      initializationSettingsAndroid, initializationSettingsIOS);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings,
+      onSelectNotification: onSelectNotification);
+  }
+
+  Future onSelectNotification (String payload) async {
+    if(payload != null){
+      print("Notification payload: $payload");
+    }
+  }
+
+  Future onDidReceiveLocalNotification(int id, String title, String body, String payload) async {
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) => CupertinoAlertDialog(
+        title: Text(title),
+        content:  Text(body),
+        actions: <Widget>[
+          CupertinoDialogAction(
+            isDefaultAction: true,
+            child: Text("Ok"),
+          )
+        ],
+      )
+    );
+
   }
 
 
@@ -258,7 +294,8 @@ class _CalendarState extends State<Calendar> {
               ),
               FlatButton.icon(
                 onPressed: () {
-                  Navigator.pushNamed(context, 'calendar');
+                  //Navigator.pushNamed(context, 'calendar');
+                  null;
                 },
                 icon: Icon(Icons.calendar_today, color: Colors.white),
                 label: Text(
