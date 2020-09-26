@@ -33,6 +33,7 @@ dependencies:
   table_calendar: ^2.2.3
   cloud_firestore: ^0.14.0+2
   datetime_picker_formfield: ^1.0.0
+  flutter_local_notifications: ^1.4.4+4
 
 dev_dependencies:
   flutter_test:
