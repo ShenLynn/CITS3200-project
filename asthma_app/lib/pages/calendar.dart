@@ -7,12 +7,18 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 // Initialising DB stuff
 DocumentSnapshot snapshot;
 final FirebaseAuth auth = FirebaseAuth.instance;
 final User user = auth.currentUser;
 final userid = user.uid;
+
+// Initialising notifications
+FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+AndroidInitializationSettings androidInitializationSettings;
+IOSInitializationSettings iosInitializationSettings;
+InitializationSettings initializationSettings;
 
 
 
@@ -31,6 +37,8 @@ class _CalendarState extends State<Calendar> {
   TextEditingController _eventController ;
   List<dynamic> _selectedEvents =[];
   bool dataLoaded = false;
+  bool notified = false;
+  DateTime notifiedDate = DateTime.parse("1900-09-27 16:04:32.238370");
 
   void _getData () {
     firestoreInstance.collection("events1").getDocuments().then((querySnapshot) {
@@ -45,12 +53,30 @@ class _CalendarState extends State<Calendar> {
             List<dynamic> items = result.get("events");
             var parsedDate = DateTime.parse(result.id);
             _events[parsedDate] = items;
+            print("Parsed Date = $parsedDate");
+            var today = DateTime.now();
+            print("Today = $today");
+            //Prevent being spammed with notifications
+            if(notifiedDate.day != today.day){
+              notified = false;
+            }
+            if(parsedDate.day == today.day && notified == false){
+              _showNotification();
+              notified = true;
+              notifiedDate = today;
+            }
           });
         });
       });
     });
   }
-
+  //initializing notifications
+  void initializing() async {
+    androidInitializationSettings = AndroidInitializationSettings("app_icon");
+    iosInitializationSettings = IOSInitializationSettings(onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+    initializationSettings = InitializationSettings(androidInitializationSettings, iosInitializationSettings);
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings, onSelectNotification: onSelectNotification);
+  }
 
   @override
   void initState() {
@@ -60,7 +86,53 @@ class _CalendarState extends State<Calendar> {
     _controller = CalendarController();
     _currentDay = DateTime.now();
     _getData();
+    initializing();
+    //_showNotification();
+
   }
+
+  //setting up scheduled notifications
+  void _showNotification() async {
+    await notification();
+  }
+  Future<void> notification() async {
+    AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails(
+        "Channel_ID",
+        "channel title",
+        "channel body",
+        priority: Priority.High,
+        importance: Importance.Max,
+        ticker: "test");
+
+    IOSNotificationDetails iosNotificationDetails = IOSNotificationDetails();
+
+    NotificationDetails notificationDetails = NotificationDetails(androidNotificationDetails, iosNotificationDetails);
+    await flutterLocalNotificationsPlugin.show(0, "Upcoming Event!", "You have an event scheduled for today!", notificationDetails);
+  }
+  Future onSelectNotification(String payLoad){
+    if(payLoad != null){
+      print(payLoad);
+    }
+
+    //set navigator to nagitate to another screen
+
+  }
+  Future onDidReceiveLocalNotification(int id, String title, String body, String payload) async {
+    return CupertinoAlertDialog(
+      title: Text(title),
+      content: Text(body),
+      actions: <Widget>[
+        CupertinoDialogAction(
+          isDefaultAction: true,
+          onPressed: () {
+            print("");
+          },
+          child: Text("Ok"),)
+      ],
+    );
+  }
+
+
 
 
   //set up global key for notification bar so we can open it w/ custom button

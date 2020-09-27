@@ -37,6 +37,12 @@ class _LocalNotificationsState extends State<LocalNotifications> {
   void _showNotifications() async {
     await notification();
   }
+
+  void _showNotificationsAfterSecond() async {
+    await notificationAfterSecond();
+  }
+
+
   Future<void> notification() async {
     AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails(
         "Channel_ID",
@@ -50,6 +56,21 @@ class _LocalNotificationsState extends State<LocalNotifications> {
 
     NotificationDetails notificationDetails = NotificationDetails(androidNotificationDetails, iosNotificationDetails);
     await flutterLocalNotificationsPlugin.show(0, "Hello there", "This is a body", notificationDetails);
+  }
+  Future<void> notificationAfterSecond() async {
+    var timeDelayed = DateTime.now().add(Duration(seconds: 5));
+    AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails(
+        "Second Channel",
+        "channel title",
+        "channel body",
+        priority: Priority.High,
+        importance: Importance.Max,
+        ticker: "test");
+
+    IOSNotificationDetails iosNotificationDetails = IOSNotificationDetails();
+
+    NotificationDetails notificationDetails = NotificationDetails(androidNotificationDetails, iosNotificationDetails);
+    await flutterLocalNotificationsPlugin.schedule(0, "Hello there", "This is a body", timeDelayed ,notificationDetails);
   }
 
   Future onSelectNotification(String payLoad){
@@ -85,7 +106,11 @@ class _LocalNotificationsState extends State<LocalNotifications> {
             FlatButton(
               color: Colors.blue[900],
               onPressed: _showNotifications,
-              child: Text("Show notification", style: TextStyle(fontSize: 20.0, color: Colors.white),),)
+              child: Text("Show notification", style: TextStyle(fontSize: 20.0, color: Colors.white),),),
+            FlatButton(
+              color: Colors.blue[900],
+              onPressed: _showNotificationsAfterSecond,
+              child: Text("Show notification after few seconds", style: TextStyle(fontSize: 20.0, color: Colors.white),),)
 
           ],
         ),
