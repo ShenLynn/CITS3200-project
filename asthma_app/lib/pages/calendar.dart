@@ -14,6 +14,10 @@ final FirebaseAuth auth = FirebaseAuth.instance;
 final User user = auth.currentUser;
 final userid = user.uid;
 
+//Notificaiton tutorial from Sujan Bhattarai. All credit for code setup. https://www.youtube.com/watch?v=7aHSNL2lxYk
+//Calendar tutorial from React Bits. All credit for basic code setup. https://www.youtube.com/watch?v=AR-9ArLSiNY
+
+
 // Initialising notifications
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 AndroidInitializationSettings androidInitializationSettings;
@@ -53,9 +57,8 @@ class _CalendarState extends State<Calendar> {
             List<dynamic> items = result.get("events");
             var parsedDate = DateTime.parse(result.id);
             _events[parsedDate] = items;
-            print("Parsed Date = $parsedDate");
+            //setting up for display of notifications
             var today = DateTime.now();
-            print("Today = $today");
             //Prevent being spammed with notifications
             if(notifiedDate.day != today.day){
               notified = false;
