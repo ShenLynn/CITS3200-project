@@ -29,7 +29,12 @@ class _SignUpPageState extends State<SignUpPage> {
                 }
               },
               onSaved: (input) => _email = input,
-              decoration: InputDecoration(labelText: 'Email'),
+              decoration: InputDecoration(
+                  labelText: 'Email',
+                fillColor: Colors.blue[900],
+                focusColor:Colors.blue[900] ,
+                hoverColor: Colors.blue[900],
+                border: OutlineInputBorder(),),
             ),
             TextFormField(
               validator: (input) {
@@ -38,12 +43,21 @@ class _SignUpPageState extends State<SignUpPage> {
                 }
               },
               onSaved: (input) => _password = input,
-              decoration: InputDecoration(labelText: 'Password'),
+              decoration: InputDecoration(
+                  labelText: 'Password',
+                fillColor: Colors.blue[900],
+                focusColor:Colors.blue[900] ,
+                hoverColor: Colors.blue[900],
+                border: OutlineInputBorder(),),
               obscureText: true,
             ),
             RaisedButton(
+              color: Colors.blue[900],
+              splashColor: Colors.deepOrange[500],
+              animationDuration: Duration(seconds: 2),
               onPressed: signUp,
-              child: Text(' Sign Up'),
+              child: Text(' Sign Up',
+                style: TextStyle(color: Colors.white),),
             )
           ],
         ),
