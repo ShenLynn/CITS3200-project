@@ -5,6 +5,8 @@
          In most cases you can leave this as-is, but you if you want to provide
          additional functionality it is fine to subclass or reimplement
          FlutterApplication and put your custom class here. -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="asthma_app"
@@ -50,6 +52,10 @@
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
             </intent-filter>
         </receiver>
+<<<<<<< HEAD
         <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+=======
+        <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
+>>>>>>> 1cee90f2ffbf901424451396a4865c60bec88a90
     </application>
 </manifest>

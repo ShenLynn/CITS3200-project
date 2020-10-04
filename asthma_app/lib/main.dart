@@ -13,6 +13,9 @@ void main ()  async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MaterialApp(
+    theme: ThemeData(
+      primaryColor: Colors.blue[900]
+    ),
     //override default route to calender
     // Application routes
     //initialRoute: "notification",
