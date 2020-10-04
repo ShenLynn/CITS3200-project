@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:asthma_app/main.dart';
+import 'package:asthma_app/pages/services/analytics_service.dart';
 
 import 'calendar.dart';
 
@@ -63,6 +64,7 @@ class _LoginPageState extends State<LoginPage> {
         UserCredential result = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: _email, password: _password);
         User user = result.user;
+        await AnalyticsService().setUserProperties(user_email:user.email);
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Calendar()));
       } catch (e) {

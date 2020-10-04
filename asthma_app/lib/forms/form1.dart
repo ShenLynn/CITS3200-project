@@ -2,10 +2,8 @@ import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
+import 'package:asthma_app/pages/services/analytics_service.dart';
 
-FirebaseAnalytics analytics = FirebaseAnalytics();
 final nameController = TextEditingController();
 final patientidController =  TextEditingController();
 final q1Controller =  TextEditingController();
@@ -23,8 +21,6 @@ final userid = user.uid;
 
 
 class form1 extends StatefulWidget {
-  static FirebaseAnalytics analytics = FirebaseAnalytics();
-  static FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
   @override
   _form1State createState() => _form1State();
 }
@@ -209,22 +205,9 @@ class _form1State extends State<form1> {
   }
 }
 
-Future<void> _sendAnalyticsEvent() async {
-  await analytics.logEvent(
-    name: 'test_event',
-    parameters: <String, dynamic>{
-      'string': 'string',
-      'int': 42,
-      'long': 12345678910,
-      'double': 42.0,
-      'bool': true,
-    },
-  );
-  print("set event");
-}
 
 void createRecord() async {
-  _sendAnalyticsEvent();
+  await AnalyticsService().logForm1Event(name:nameController.text,q1: q1Controller.text, q2: q2Controller.text, q3: q3Controller.text, q4:q4Controller.text);
   await FirebaseFirestore.instance.collection("Forms")
       .doc("$userName").collection('Mini-Asthma-Quality-Life-Questionnaire')
       .doc().set({

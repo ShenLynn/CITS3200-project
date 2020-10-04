@@ -2,6 +2,7 @@ import 'package:asthma_app/pages/MyTreatments.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:asthma_app/pages/services/analytics_service.dart';
 
 final nameController = TextEditingController();
 final patientidController =  TextEditingController();
@@ -149,6 +150,7 @@ class _AddTreatmentsState extends State<AddTreatments> {
 }
 
 void createRecord() async {
+  await AnalyticsService().setUserPropertiesTreatment(treatment: TreatmentNameController.text);
   await FirebaseFirestore.instance.collection("Treatments")
       .doc("$userid").collection('Individual Treatments')
       .doc('$nameOfTreatment').set({

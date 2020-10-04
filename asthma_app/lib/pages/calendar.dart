@@ -183,7 +183,7 @@ class _CalendarState extends State<Calendar> {
               ),
             SizedBox(height:20),
             Row( mainAxisAlignment: MainAxisAlignment.center,
-              children: [Text("event", style: TextStyle(
+              children: [Text("events", style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
                 decoration: TextDecoration.underline
