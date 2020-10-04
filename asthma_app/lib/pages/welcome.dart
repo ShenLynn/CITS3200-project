@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:asthma_app/pages/signIn.dart';
 import 'package:asthma_app/pages/sign_up.dart';
 import 'package:flutter/painting.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 class WelcomePage extends StatefulWidget {

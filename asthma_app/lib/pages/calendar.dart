@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 
@@ -196,53 +197,6 @@ class _CalendarState extends State<Calendar> {
           ),
           title: Text("Asthma App"),
           centerTitle: true,
-          actions: [
-            IconButton(
-              icon:Icon(
-                  Icons.notifications,
-                  color:Colors.white
-              ),
-              onPressed: () {
-                _scaffoldkey.currentState.openEndDrawer();
-                //TODO: Add function to display notifications
-              },
-            )
-          ]),
-      //notification panel work
-      endDrawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                child: Text("Notifications",
-                    style: TextStyle(
-                      color:Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                    textAlign: TextAlign.center
-                ),
-                decoration: BoxDecoration(
-
-                  color: Colors.blue[900],
-                ),
-              ),
-              ListTile(
-                  title: Text("Notification 1"),
-                  onTap: () {
-                    //do something eg rubbish bin dismisses
-                    Navigator.pop(context); //return back to calendar
-                  }
-              ),
-              ListTile(
-                  title: Text("Notification 2"),
-                  onTap: () {
-                    //do something
-                    Navigator.pop(context); //return back to calendar
-                  }
-              ),
-            ],
-          )
       ),
 
       //body of app

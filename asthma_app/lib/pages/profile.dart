@@ -23,6 +23,10 @@ class _ProfileState extends State<Profile> {
         leading: new IconButton(
           icon: new Icon(Icons.person),
           onPressed: () => _scaffoldKey.currentState.openDrawer()),
+        actions: [IconButton(
+          icon: Icon(Icons.exit_to_app_sharp),
+          onPressed: () => Navigator.pop(context),
+        )],
         ),
         body: profileTemplate(),
         );

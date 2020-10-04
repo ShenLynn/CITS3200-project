@@ -52,10 +52,7 @@
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
             </intent-filter>
         </receiver>
-<<<<<<< HEAD
         <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-=======
         <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
->>>>>>> 1cee90f2ffbf901424451396a4865c60bec88a90
     </application>
 </manifest>

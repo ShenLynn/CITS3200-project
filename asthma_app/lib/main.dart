@@ -8,12 +8,14 @@ import 'package:asthma_app/pages/welcome.dart';
 import 'package:asthma_app/forms/addEvent.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'pages/notification.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main ()  async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MaterialApp(
     theme: ThemeData(
+      //textTheme: GoogleFonts.robotoTextTheme(),
       primaryColor: Colors.blue[900]
     ),
     //override default route to calender
