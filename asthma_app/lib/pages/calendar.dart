@@ -186,7 +186,7 @@ class _CalendarState extends State<Calendar> {
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
                 decoration: TextDecoration.underline
-              ),),SizedBox(width: 20),Icon(Icons.arrow_circle_down_sharp, size: 30,)],
+              ),),SizedBox(width: 20),Icon(Icons.arrow_drop_down_circle, size: 30,)],
             ),
             SizedBox(height:15),
 

@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1a624eff-741f-4366-a59a-223cf8f7d4f2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/asthma_app/lib/pages/calendar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/asthma_app/lib/pages/calendar.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,6 +84,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="719" y="319" key="#com.intellij.ide.util.TreeFileChooserDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1599036604837" />
+    <state x="640" y="248" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1601889840219">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="640" y="248" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1601889840219" />
     <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1599720420737">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
