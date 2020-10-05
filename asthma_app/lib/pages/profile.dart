@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:asthma_app/pages/AddTreatments.dart';
 import 'package:asthma_app/pages/MyTreatments.dart';
 import 'package:asthma_app/pages/submittedItems.dart';
+import 'package:asthma_app/pages/profile_edit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:asthma_app/pages/services/database.dart';
@@ -67,6 +68,14 @@ class ProfileTemplate extends StatelessWidget {
                         ),
                         SizedBox(
                           height: 20.0,
+                        ),
+                        RaisedButton(
+                          onPressed: () => {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> Profile_edit()))},
+                          child: Text(
+                            "Update Profile",
+                            style: TextStyle(fontSize: 20)
+                          )
                         ),
                         Divider(
                           color: Colors.grey,

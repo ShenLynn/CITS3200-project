@@ -25,6 +25,16 @@ class DatabaseService {
     });
   }
 
+  Future updateUserProfile(String fullname, String dob, String phonenumber,
+      String aboutme) async {
+    return await personalInfoColletion.doc(getcurrentUsername()).update({
+      'fullname': fullname,
+      'dob': dob,
+      'phonenumber': phonenumber,
+      'aboutme': aboutme
+    });
+  }
+
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
     print(snapshot);
     return UserData(
