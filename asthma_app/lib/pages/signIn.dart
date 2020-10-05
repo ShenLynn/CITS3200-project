@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:asthma_app/main.dart';
 import 'package:asthma_app/pages/services/analytics_service.dart';
-
 import 'calendar.dart';
-
+final resetpasswordController = TextEditingController();
 
 class LoginPage extends StatefulWidget {
   @override
@@ -14,6 +13,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   String _email, _password;
+  bool resetpassword = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
       body: Form(
         key: _formKey,
         child: Column(
-          children: [
+          children: <Widget>[
             TextFormField(
               validator: (input) {
                 if (input.isEmpty) {
@@ -48,12 +48,45 @@ class _LoginPageState extends State<LoginPage> {
             RaisedButton(
               onPressed: signIn,
               child: Text(' Sign in'),
-            )
+            ),
+            RaisedButton(
+              onPressed: () {
+                setState(() {
+                  resetpassword = !resetpassword;
+                });
+              },
+              child: Text('Forgot my password'),
+            ),
+            resetpassword ?
+            Column(
+                  children: <Widget>[
+              TextFormField(
+                validator: (input) {
+                  if (input.isEmpty) {
+                    return "Enter your email to reset your password.";
+                  }
+                },
+                controller: resetpasswordController,
+                decoration: InputDecoration(labelText: 'Enter your email to reset your password'),
+              ), RaisedButton(
+                      onPressed: () {
+                        auth.sendPasswordResetEmail(
+                            email: resetpasswordController.text).then((
+                            processvalue) {
+                        }).catchError((error) {
+                          print("there was an error");
+                        });
+                      }
+                    ),
+            ],
+            ): Container()
           ],
         ),
       ),
     );
   }
+
+
 
   void signIn() async {
     final formState = _formKey.currentState;
@@ -73,3 +106,4 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 }
+

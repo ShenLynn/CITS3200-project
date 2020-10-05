@@ -61,6 +61,7 @@ class ProfileTemplate extends StatelessWidget {
                         SizedBox(
                           height: 20.0,
                         ),
+
                         Divider(
                           color: Colors.grey,
                           height: 10.0,
