@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:asthma_app/pages/signIn.dart';
+<<<<<<< HEAD
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+=======
+import 'package:google_fonts/google_fonts.dart';
+>>>>>>> 8840669cafaf1cd0ee6445f4bdf4ab8a030ba1cb
 class SignUpPage extends StatefulWidget {
   @override
 String getUsername() {
@@ -61,7 +65,12 @@ class _SignUpPageState extends State<SignUpPage> {
                 }
               },
               onSaved: (input) => _email = input,
-              decoration: InputDecoration(labelText: 'Email'),
+              decoration: InputDecoration(
+                  labelText: 'Email',
+                fillColor: Colors.blue[900],
+                focusColor:Colors.blue[900] ,
+                hoverColor: Colors.blue[900],
+                border: OutlineInputBorder(),),
             ),
             TextFormField(
               validator: (input) {
@@ -70,12 +79,21 @@ class _SignUpPageState extends State<SignUpPage> {
                 }
               },
               onSaved: (input) => _password = input,
-              decoration: InputDecoration(labelText: 'Password'),
+              decoration: InputDecoration(
+                  labelText: 'Password',
+                fillColor: Colors.blue[900],
+                focusColor:Colors.blue[900] ,
+                hoverColor: Colors.blue[900],
+                border: OutlineInputBorder(),),
               obscureText: true,
             ),
             RaisedButton(
+              color: Colors.blue[900],
+              splashColor: Colors.deepOrange[500],
+              animationDuration: Duration(seconds: 2),
               onPressed: signUp,
-              child: Text(' Sign Up'),
+              child: Text(' Sign Up',
+                style: TextStyle(color: Colors.white),),
             )
           ],
         ),

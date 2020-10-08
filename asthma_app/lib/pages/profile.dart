@@ -32,13 +32,14 @@ class _ProfileState extends State<Profile> {
           title: Text("User Profile"),
           centerTitle: true,
           leading: new IconButton(
-            icon: new Icon(Icons.person),
-            onPressed: () => _scaffoldKey.currentState.openDrawer()),
+            icon: new Icon(Icons.exit_to_app_sharp),
+            onPressed: () => Navigator.pop(context),
           ),
           body: ProfileTemplate(),
           bottomNavigationBar: BottomNavigationBar()
           ),
     );
+     
   }
 }
 

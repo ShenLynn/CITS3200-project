@@ -7,6 +7,10 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+
 
 
 // Initialising DB stuff
@@ -14,6 +18,16 @@ DocumentSnapshot snapshot;
 final FirebaseAuth auth = FirebaseAuth.instance;
 final User user = auth.currentUser;
 final userid = user.uid;
+
+//Notificaiton tutorial from Sujan Bhattarai. All credit for code setup. https://www.youtube.com/watch?v=7aHSNL2lxYk
+//Calendar tutorial from React Bits. All credit for basic code setup. https://www.youtube.com/watch?v=AR-9ArLSiNY
+
+
+// Initialising notifications
+FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+AndroidInitializationSettings androidInitializationSettings;
+IOSInitializationSettings iosInitializationSettings;
+InitializationSettings initializationSettings;
 
 
 
@@ -32,6 +46,12 @@ class _CalendarState extends State<Calendar> {
   TextEditingController _eventController ;
   List<dynamic> _selectedEvents =[];
   bool dataLoaded = false;
+  bool notified = false;
+  DateTime notifiedDate = DateTime.parse("1900-09-27 16:04:32.238370");
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+  var initializationSettingsAndroid;
+  var initializationSettingsIOS;
+  var initializationSettings;
 
   void _getData () {
     firestoreInstance.collection("events1").getDocuments().then((querySnapshot) {
@@ -46,12 +66,29 @@ class _CalendarState extends State<Calendar> {
             List<dynamic> items = result.get("events");
             var parsedDate = DateTime.parse(result.id);
             _events[parsedDate] = items;
+            //setting up for display of notifications
+            var today = DateTime.now();
+            //Prevent being spammed with notifications
+            if(notifiedDate.day != today.day){
+              notified = false;
+            }
+            if(parsedDate.day == today.day && notified == false){
+              _showNotification();
+              notified = true;
+              notifiedDate = today;
+            }
           });
         });
       });
     });
   }
-
+  //initializing notifications
+  void initializing() async {
+    androidInitializationSettings = AndroidInitializationSettings("app_icon");
+    iosInitializationSettings = IOSInitializationSettings(onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+    initializationSettings = InitializationSettings(androidInitializationSettings, iosInitializationSettings);
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings, onSelectNotification: onSelectNotification);
+  }
 
   @override
   void initState() {
@@ -61,7 +98,82 @@ class _CalendarState extends State<Calendar> {
     _controller = CalendarController();
     _currentDay = DateTime.now();
     _getData();
+    initializing();
+    //_showNotification();
+
   }
+
+  //setting up scheduled notifications
+  void _showNotification() async {
+    await notification();
+  }
+  Future<void> notification() async {
+    AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails(
+        "Channel_ID",
+        "channel title",
+        "channel body",
+        priority: Priority.High,
+        importance: Importance.Max,
+        ticker: "test");
+
+    IOSNotificationDetails iosNotificationDetails = IOSNotificationDetails();
+
+    NotificationDetails notificationDetails = NotificationDetails(androidNotificationDetails, iosNotificationDetails);
+    await flutterLocalNotificationsPlugin.show(0, "Upcoming Event!", "You have an event scheduled for today!", notificationDetails);
+  }
+  Future onSelectNotification(String payLoad){
+    if(payLoad != null){
+      print(payLoad);
+    }
+
+    //set navigator to nagitate to another screen
+    initializationSettingsAndroid = new AndroidInitializationSettings('app_icon');
+    initializationSettingsIOS = new IOSInitializationSettings(
+      onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+    initializationSettings = new InitializationSettings(
+      initializationSettingsAndroid, initializationSettingsIOS);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings,
+      onSelectNotification: onSelectNotification);
+  }
+
+  /**Future onSelectNotification (String payload) async {
+    if(payload != null){
+      print("Notification payload: $payload");
+    }
+  } **/
+
+  Future onDidReceiveLocalNotification(int id, String title, String body, String payload) async {
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) => CupertinoAlertDialog(
+        title: Text(title),
+        content:  Text(body),
+        actions: <Widget>[
+          CupertinoDialogAction(
+            isDefaultAction: true,
+            child: Text("Ok"),
+          )
+        ],
+      )
+    );
+
+  }
+  /**Future onDidReceiveLocalNotification(int id, String title, String body, String payload) async {
+    return CupertinoAlertDialog(
+      title: Text(title),
+      content: Text(body),
+      actions: <Widget>[
+        CupertinoDialogAction(
+          isDefaultAction: true,
+          onPressed: () {
+            print("");
+          },
+          child: Text("Ok"),)
+      ],
+    );
+  } **/
+
+
 
 
   //set up global key for notification bar so we can open it w/ custom button
@@ -86,53 +198,6 @@ class _CalendarState extends State<Calendar> {
           ),
           title: Text("Asthma App"),
           centerTitle: true,
-          actions: [
-            IconButton(
-              icon:Icon(
-                  Icons.notifications,
-                  color:Colors.white
-              ),
-              onPressed: () {
-                _scaffoldkey.currentState.openEndDrawer();
-                //TODO: Add function to display notifications
-              },
-            )
-          ]),
-      //notification panel work
-      endDrawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                child: Text("Notifications",
-                    style: TextStyle(
-                      color:Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                    textAlign: TextAlign.center
-                ),
-                decoration: BoxDecoration(
-
-                  color: Colors.blue[900],
-                ),
-              ),
-              ListTile(
-                  title: Text("Notification 1"),
-                  onTap: () {
-                    //do something eg rubbish bin dismisses
-                    Navigator.pop(context); //return back to calendar
-                  }
-              ),
-              ListTile(
-                  title: Text("Notification 2"),
-                  onTap: () {
-                    //do something
-                    Navigator.pop(context); //return back to calendar
-                  }
-              ),
-            ],
-          )
       ),
 
       //body of app
@@ -259,7 +324,8 @@ class _CalendarState extends State<Calendar> {
               ),
               FlatButton.icon(
                 onPressed: () {
-                  Navigator.pushNamed(context, 'calendar');
+                  //Navigator.pushNamed(context, 'calendar');
+                  null;
                 },
                 icon: Icon(Icons.calendar_today, color: Colors.white),
                 label: Text(
