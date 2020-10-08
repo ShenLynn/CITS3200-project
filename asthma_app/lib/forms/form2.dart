@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:asthma_app/pages/services/analytics_service.dart';
 
 final nameController = TextEditingController();
 final patientidController =  TextEditingController();
@@ -165,7 +166,9 @@ class _form2State extends State<form2> {
   }
 }
 
+
 void createRecord() async {
+  await AnalyticsService().logForm2Event(name:nameController.text, q1:q1Controller.text, q2:q2Controller.text, q3:q3Controller.text, q4:q4Controller.text);
   await FirebaseFirestore.instance.collection("Forms")
       .doc("$userid").collection('Questionnaire on Cough Impact')
       .doc().set({

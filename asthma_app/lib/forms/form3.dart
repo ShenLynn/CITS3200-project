@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:asthma_app/pages/services/analytics_service.dart';
 
 final nameController = TextEditingController();
 final patientidController =  TextEditingController();
@@ -163,7 +164,10 @@ class _form3State extends State<form3> {
   }
 }
 
+
+
 void createRecord() async {
+  AnalyticsService().logForm3Event(name:nameController.text, q1:q1Controller.text, q2:q2Controller.text, q3:q3Controller.text, q4:q4Controller.text);
   await FirebaseFirestore.instance.collection("Asthma_attacks")
       .doc("$userid").collection('Record Asthma attacks')
       .doc().set({
@@ -175,8 +179,6 @@ void createRecord() async {
     'How long did it last for?':q3Controller.text,
     'What actions did you take?': q4Controller.text,
     'Please write some additional notes about it': q5Controller.text,
-
-
   });
 
 }
