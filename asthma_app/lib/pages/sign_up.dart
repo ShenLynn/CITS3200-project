@@ -3,12 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:asthma_app/pages/signIn.dart';
-<<<<<<< HEAD
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-=======
-import 'package:google_fonts/google_fonts.dart';
->>>>>>> 8840669cafaf1cd0ee6445f4bdf4ab8a030ba1cb
 class SignUpPage extends StatefulWidget {
   @override
 String getUsername() {

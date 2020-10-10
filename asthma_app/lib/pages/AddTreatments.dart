@@ -2,11 +2,8 @@ import 'package:asthma_app/pages/MyTreatments.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-<<<<<<< HEAD
 import 'package:asthma_app/pages/services/analytics_service.dart';
-=======
 import 'package:google_fonts/google_fonts.dart';
->>>>>>> 8840669cafaf1cd0ee6445f4bdf4ab8a030ba1cb
 
 final nameController = TextEditingController();
 final patientidController =  TextEditingController();

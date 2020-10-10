@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:asthma_app/pages/signIn.dart';
 import 'package:asthma_app/pages/sign_up.dart';
 import 'package:flutter/painting.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 
 class WelcomePage extends StatefulWidget {
@@ -47,7 +46,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   fontWeight: FontWeight.bold
                 ),),
                 SizedBox(width: 5,),
-                Icon(Icons.login_sharp, color: Colors.white,)
+                Icon(Icons.login, color: Colors.white,)
               ],
             )
           ),
