@@ -21,6 +21,7 @@ class _SubmittedForm1State extends State<SubmittedForm1>  {
               .doc("$userid").collection('Mini-Asthma-Quality-Life-Questionnaire')
               .snapshots(),
           builder: (context,snapshots){
+            if (snapshots.data == null) return CircularProgressIndicator();
             return ListView.builder(
               itemCount: snapshots.data.documents.length,
               itemBuilder: (context,index){

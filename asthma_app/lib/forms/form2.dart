@@ -1,3 +1,4 @@
+import 'package:asthma_app/forms/form1.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,8 +18,7 @@ var _q5selectedOption;
 final FirebaseAuth auth = FirebaseAuth.instance;
 final User user = auth.currentUser;
 final username = user.displayName;
-
-
+final userid = user.uid;
 
 class form2 extends StatefulWidget {
   @override
@@ -28,7 +28,6 @@ class form2 extends StatefulWidget {
 class _form2State extends State<form2> {
   final databaseReference = FirebaseFirestore.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  bool _autovalidate = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,22 +39,35 @@ class _form2State extends State<form2> {
           padding: EdgeInsets.all(32),
           child: Form(
               key: _formKey,
-              autovalidate: _autovalidate,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Please answer the below questions on a scale from 0-6 with 0 being the lest and 6 being the most',
+                  Text('Please answer the below questions on a scale from 0-6',
                       style: TextStyle(fontWeight :FontWeight.bold, color: Colors.red)),
                   SizedBox(height: 20,),
-                  Text('Q1(Woken during the night)',
-                      style: TextStyle(fontWeight :FontWeight.bold)),
+                  Text('Q1) On average, during the past week, how often were you woken by your asthma during the night?',
+                      style: TextStyle(fontWeight :FontWeight.bold,fontSize: 20)),
+                  SizedBox(height: 4,),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text('0. Never ',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('1. Hardly Ever',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('2. A Few Minutes',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('3. Several Times',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('4. Many Times',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('5. A Great Many Times',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('6. Unable to sleep because of asthma',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                    ],
+                  ),
+                  SizedBox(height: 4,),
                   DropdownButton(
                     value: _q1selectedOption,
                     onChanged: (newValue){
-                      setState(() {_q1selectedOption= newValue;
+                      setState(() {_q1selectedOption = newValue;
                       });
                   },
-
                       items:_answers.map((location){
                         return DropdownMenuItem(
                           child: new Text(location),
@@ -64,9 +76,25 @@ class _form2State extends State<form2> {
                       }).toList(),
                   ),
 
-                  Text('Q2(symptoms in the morning)',
-                      style: TextStyle(fontWeight :FontWeight.bold)),
+                  Text('Q2) On average, during the past week, how bad were your asthma symptoms when you woke up in the morning?',
+                      style: TextStyle(fontWeight :FontWeight.bold,fontSize: 20)),
+                  SizedBox(height: 4,),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text('0. No Symptoms ',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('1. Very Mild Symptoms ',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('2. Mild Symptoms',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('3. Moderate Symptoms',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('4. Quite Severe Symptoms',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('5. Severe Symptoms',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('6. Very Severe Symptoms',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                    ],
+                  ),
+                  SizedBox(height: 4,),
                DropdownButton(
+                 isExpanded: true,
                 value: _q2selectedOption,
                 onChanged: (newValue){
                   setState(() {
@@ -80,8 +108,23 @@ class _form2State extends State<form2> {
                   );
                 }).toList(),
                ),
-                  Text('Q3(day to day activites)',
-                      style: TextStyle(fontWeight :FontWeight.bold)),
+                  Text('Q3) In general, during the past week how limited where are you in your activities because of your asthma?',
+                      style: TextStyle(fontWeight :FontWeight.bold, fontSize: 20)),
+                  SizedBox(height: 4,),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text('0. Not Limited At All',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('1. Very Slightly Limited ',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('2. Slightly Limited',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('3. Moderately Limited',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('4. Very Limited',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('5. Extremely Limited',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('6. Totaly Limited',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                    ],
+                  ),
+                  SizedBox(height: 4,),
                   DropdownButton(
                     value: _q3selectedOption,
                     onChanged: (newValue){
@@ -96,8 +139,23 @@ class _form2State extends State<form2> {
                       );
                     }).toList(),
                   ),
-                  Text('Q4(shortness of breadth)',
-                      style: TextStyle(fontWeight :FontWeight.bold)),
+                  Text('Q4) In general, during the past week, how much shortness of breath did you experience because of your asthma?',
+                      style: TextStyle(fontWeight :FontWeight.bold,fontSize: 20)),
+                  SizedBox(height: 4,),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text('0. None',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('1. A Very Little',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('2. A Little',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('3. A Moderate Amount',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('4. Quite A Lot',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('5. A Great Deal',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('6. A Very Great Deal',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                    ],
+                  ),
+                  SizedBox(height: 4,),
                   DropdownButton(
                     value: _q4selectedOption,
                     onChanged: (newValue){
@@ -112,8 +170,23 @@ class _form2State extends State<form2> {
                       );
                     }).toList(),
                   ),
-                  Text('q5(wheeze)',
-                      style: TextStyle(fontWeight :FontWeight.bold)),
+                  Text('q5) In general, during the past week, how much of the time did you wheeze?',
+                      style: TextStyle(fontWeight :FontWeight.bold,fontSize: 20)),
+                  SizedBox(height: 4,),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text('0. Not At All',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('1. Hardly Any Of The Time',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('2. A Little Of The Time',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('3. A Moderate Amount Of The Time',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('4. A Lot Of The Time',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('5. Most Of The Time',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                      Text('6. All The Time',style: TextStyle(fontWeight :FontWeight.bold,fontSize: 17)),
+                    ],
+                  ),
+                  SizedBox(height: 4,),
                   DropdownButton(
                     value: _q5selectedOption,
                     onChanged: (newValue){
@@ -157,7 +230,7 @@ int calculateFinalScore(var a, var b, var c, var d, var e){
 
 void createRecord() async {
   await FirebaseFirestore.instance.collection("Forms")
-      .doc("$username").collection('ACQ-5')
+      .doc("$userName").collection('ACQ-5')
       .doc().set({
     'Submitted at': DateTime.now(),
     'Score':calculateFinalScore(int.parse(_q1selectedOption),

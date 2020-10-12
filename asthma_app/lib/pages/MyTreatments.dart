@@ -69,9 +69,8 @@ class _MyTreatmentsState extends State<MyTreatments> {
                                 },
                               ),
                         ],
-
                       ),
-                    ]
+                        ]
                       ),
                   )
                   );

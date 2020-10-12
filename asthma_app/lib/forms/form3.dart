@@ -2,14 +2,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-List<String> _answers = ['Took sterioids', 'Took antibiotics', 'Went to hospital'];
-var _q2selectedOption;
-
-final q1Controller =  TextEditingController();
 final FirebaseAuth auth = FirebaseAuth.instance;
 final User user = auth.currentUser;
 final userid = user.uid;
 final userName = user.displayName;
+
+List<String> _answers = ['Took sterioids', 'Took antibiotics', 'Went to hospital'];
+var _q2selectedOption;
+final q1Controller =  TextEditingController();
+final pinController =  TextEditingController();
 
 
 class form3 extends StatefulWidget {
@@ -65,10 +66,30 @@ class _form3State extends State<form3> {
                       );
                     }).toList(),
                   ),
+                  Text('Please enter your 4-digit pin[Make sure',
+                      style: TextStyle(fontWeight :FontWeight.bold)),
+                  TextFormField(
+                    controller: pinController,
+                    textAlign: TextAlign.left,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'PLEASE ENTER YOUR PIN',
+                      hintStyle: TextStyle(color: Colors.grey),
+                    ),
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter your pin';
+                      }
+                      return null;
+                    },
+                  ),
+                  Text(checkIfPinEntered(pinController), style: TextStyle(fontWeight :FontWeight.bold, color: Colors.red),
+                  ),
                   RaisedButton(child: Text('Submit Form'),
                     onPressed:(){
-                      createRecord();
-                      Navigator.pushNamed(context, 'forms_page');
+                    createRecord();
+                    _formKey.currentState.reset();
+                    Navigator.pushNamed(context, 'forms_page');
                     },
                   )
                 ],
@@ -79,14 +100,20 @@ class _form3State extends State<form3> {
   }
 }
 
+String checkIfPinEntered(var a){
+  if(a == null){
+    return "You have not yet entered your 4-digit pin, please type it in before you submit the form";
+  }
+  return "You may press the button below and submit the form";
+}
+
 void createRecord() async {
   await FirebaseFirestore.instance.collection("Asthma attacks")
       .doc("$userName").collection('Record Asthma attacks')
       .doc().set({
-    'When did you have the attack?': q1Controller.text,
-    'What actions did you take?': _q2selectedOption
-
-
+    'time': q1Controller.text,
+    'action_taken': _q2selectedOption,
+    'pin': pinController.text
   });
 
 }
