@@ -4,6 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:asthma_app/pages/services/database.dart';
 import 'package:asthma_app/models/user.dart';
 import 'package:asthma_app/pages/profile.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:io';
+import 'package:path/path.dart';
 
 final nameController = TextEditingController();
 final dobController = TextEditingController();
@@ -39,11 +43,13 @@ class ProfileTemplate extends StatelessWidget {
   @override
   Widget build(BuildContext context){
     final info = Provider.of<UserData>(context);
+    File _image;
     if(info == null) return CircularProgressIndicator();
     return SingleChildScrollView(
         child:Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+
               Padding(
                   padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 0.0),
                   child: Column(
@@ -109,3 +115,4 @@ class ProfileTemplate extends StatelessWidget {
     );
   }
 }
+

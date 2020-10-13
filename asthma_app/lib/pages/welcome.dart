@@ -46,7 +46,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   fontWeight: FontWeight.bold
                 ),),
                 SizedBox(width: 5,),
-                Icon(Icons.login, color: Colors.white,)
+                Icon(Icons.create, color: Colors.white,)
               ],
             )
           ),

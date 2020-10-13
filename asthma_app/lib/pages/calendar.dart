@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:asthma_app/forms/addEvent.dart';
+import 'package:asthma_app/pages/welcome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 
 
@@ -186,6 +188,23 @@ class _CalendarState extends State<Calendar> {
       appBar: AppBar(
         //header of app
           elevation: 0,
+          actions:<Widget>[
+            FlatButton.icon(
+              icon:Icon(Icons.person),
+              label: Text('logout'),
+              onPressed: () async {
+                try{
+                  await FirebaseAuth.instance.signOut();
+                  await Navigator.pop(context);
+                  await Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => WelcomePage()));
+                } catch(e){
+                  print(e.toString());
+                  return null;
+                }
+              }
+            )
+          ],
           backgroundColor: Colors.blue[900],
           leading: IconButton(
             icon:Icon(

@@ -20,6 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: Text('Sign In'),
         centerTitle: true,
@@ -48,8 +49,8 @@ class _LoginPageState extends State<LoginPage> {
               obscureText: true,
             ),
             RaisedButton(
-              onPressed: signIn,
-              child: Text(' Sign in'),
+              onPressed: () =>[setState((){resetpassword = false;  }), signIn()  ],
+              child: Text(' Sign In'),
             ),
             RaisedButton(
               onPressed: () {
@@ -57,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                   resetpassword = !resetpassword;
                 });
               },
-              child: Text('Forgot my password'),
+              child: Text('Forgot My Password'),
             ),
             resetpassword
                 ? Column(
@@ -81,7 +82,9 @@ class _LoginPageState extends State<LoginPage> {
                             .catchError((error) {
                           print("there was an error");
                         });
-                      }),
+                      },
+                        child: Text("Send Reset Link")
+                      ),
                     ],
                   )
                 : Container()
